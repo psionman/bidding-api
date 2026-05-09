@@ -5,7 +5,7 @@ import random
 from bfgdealer.dealer_duo import Dealer
 from bridgeobjects import Board, Card, Hand
 
-from bidding_conventions.common import hand_strength
+from bidding_conventions.common import hand_strength, suit_html
 from bidding_conventions.constants import (
     OPENER_OPENS_1NT,
     PARTNERS_HOLDING,
@@ -42,6 +42,23 @@ class Overcaller:
         ("5C and 5D", "2NT"),
     ]
 
+    @property
+    def question(self) -> Question:
+        """
+        Pick a holding, pick points, adjust for extremes, build the question.
+        """
+        holding, correct_response = self._random_holding()
+        points = self._random_points()
+        correct = self._extreme_points_adjustment(points, correct_response)
+        return Question(
+            title=CONVENTION_TITLE,
+            description=CONVENTION_DESCRIPTION,
+            preamble=self._build_preamble(holding, points),
+            question=WHAT_IS_YOUR_BID,
+            options=[],
+            correct_response=correct,
+        )
+
     @staticmethod
     def _extreme_points_adjustment(points: int, response: str) -> str:
         if points < 10:
@@ -62,49 +79,6 @@ class Overcaller:
         return (
             f"{OPENER_OPENS_1NT} and {YOUR_HOLDING} "
             f"{holding} and have {points} {POINTS}."
-        )
-
-    @property
-    def question(self) -> Question:
-        """
-        Pick a holding, pick points, adjust for extremes, build the question.
-        """
-        holding, correct_response = self._random_holding()
-        points = self._random_points()
-        correct = self._extreme_points_adjustment(points, correct_response)
-        return Question(
-            title=CONVENTION_TITLE,
-            description=CONVENTION_DESCRIPTION,
-            preamble=self._build_preamble(holding, points),
-            question=WHAT_IS_YOUR_BID,
-            options=[],
-            correct_response=correct,
-        )
-
-
-class AdvancerInterpretation:
-    OPTIONS = [
-        ("2C", "5/4 H and another"),
-        ("2D", "5/4 S and another"),
-        ("2H", "6H"),
-        ("2S", "6S"),
-        ("2NT", "5C and 5D"),
-    ]
-
-    @property
-    def question(self) -> Question:
-        selection = random.choice(self.OPTIONS)
-        partners_bid = selection[0]
-        correct_response = selection[1]
-        preamble = f"{OPENER_OPENS_1NT} {PARTNERS_OVERCALL} {partners_bid}"
-        options = [item[1] for item in self.OPTIONS]
-        return Question(
-            title=CONVENTION_TITLE,
-            description=CONVENTION_DESCRIPTION,
-            preamble=preamble,
-            question=PARTNERS_HOLDING,
-            options=options,
-            correct_response=correct_response,
         )
 
 
@@ -229,10 +203,36 @@ class AdvancersBid:
         return "no "
 
 
-def asptro_question() -> Question:
+class AdvancerInterpretation:
+    OPTIONS = [
+        ("2C", f"5/4 {suit_html('H')} and another"),
+        ("2D", f"5/4 {suit_html('S')} and another"),
+        ("2H", f"6{suit_html('H')}"),
+        ("2S", f"6{suit_html('S')}"),
+        ("2NT", f"5{suit_html('C')} and 5{suit_html('D')}"),
+    ]
+
+    @property
+    def question(self) -> Question:
+        selection = random.choice(self.OPTIONS)
+        partners_bid = selection[0]
+        correct_response = selection[1]
+        preamble = f"{OPENER_OPENS_1NT} {PARTNERS_OVERCALL} {partners_bid}"
+        options = [item[1] for item in self.OPTIONS]
+        return Question(
+            title=CONVENTION_TITLE,
+            description=CONVENTION_DESCRIPTION,
+            preamble=preamble,
+            question=PARTNERS_HOLDING,
+            options=options,
+            correct_response=correct_response,
+        )
+
+
+def question() -> Question:
     classes = [
         Overcaller(),
-        AdvancerInterpretation(),
         AdvancersBid(),
+        AdvancerInterpretation(),
     ]
     return random.choice(classes).question

@@ -1,5 +1,8 @@
 from pathlib import Path
 
+
+NO_DESCRIPTION = "No description found"
+
 style_block = """
     <style>
   .conv {
@@ -209,9 +212,19 @@ style_block_large = """
 
 
 def get_description(file: str) -> str:
-    with open(
-        Path(Path(__file__).parent.parent, "html", file)
-    ) as f_description:
-        description = f_description.read()
+    loop = True
+    parent = Path(__file__)
+    while loop:
+        path = Path(parent, "html", file)
+        if not path.parent:
+            loop = False
+            return NO_DESCRIPTION
 
-    return f"{style_block_large}{description}"
+        if not Path(parent, "html", file).exists():
+            parent = parent.parent
+            continue
+
+        with open(Path(parent, "html", file)) as f_description:
+            description = f_description.read()
+
+        return f"{style_block_large}{description}"

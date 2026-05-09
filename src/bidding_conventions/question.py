@@ -68,13 +68,13 @@ class Question:
             s = match.group()
             if s[1] in (" ", "\t"):
                 # "no H" style — suit is last character
-                colour, entity = SUIT_MAP[s[-1].upper()]
-                return f'{s[:-1]}<span class="{colour}-suit">{entity}</span>'
+                colour, suit = SUIT_MAP[s[-1].upper()]
+                return f'{s[:-1]}<span class="{colour}-suit">{suit}</span>'
             else:
                 # "3H" style
-                colour, entity = SUIT_MAP[s[1].upper()]
+                colour, suit = SUIT_MAP[s[1].upper()]
                 return (
-                    f'{s[0]}<span class="{colour}-suit">{entity}</span>{s[2:]}'
+                    f'{s[0]}<span class="{colour}-suit">{suit}</span>{s[2:]}'
                 )
 
         if re.match(SUIT_RE, text):

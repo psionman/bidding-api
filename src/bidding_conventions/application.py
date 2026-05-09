@@ -1,6 +1,12 @@
 import random
 
-from bidding_conventions.asptro import asptro_question
+from bidding_conventions.asptro import question as asptro_question
+from bidding_conventions.five_card_majors.opener import (
+    question as fcm_opener_question,
+)
+from bidding_conventions.five_card_majors.responder import (
+    question as fcm_responder_question,
+)
 
 CONVENTION_FUNCTIONS = {
     "asptro": asptro_question,
@@ -8,6 +14,8 @@ CONVENTION_FUNCTIONS = {
     # 'ghestem': _get_ghestem,
     # 'puppet-stayman': _get_puppet_stayman,
     # 'lebensohl': _get_lebensol,
+    "five-cm-opener": fcm_opener_question,
+    "five-cm-responder-bid-one": fcm_responder_question,
 }
 
 
@@ -40,14 +48,34 @@ def get_conventions(params: dict) -> dict:
                 {"id": "multi-landy", "name": "Multi-Landy", "children": []},
             ],
         },
-        {"id": "ghestem", "name": "Ghestem", "children": []},
-        {"id": "puppet-stayman", "name": "Puppet Stayman", "children": []},
-        {"id": "lebensohl", "name": "Lebensohl", "children": []},
+        # {"id": "ghestem", "name": "Ghestem", "children": []},
+        # {"id": "puppet-stayman", "name": "Puppet Stayman", "children": []},
+        # {"id": "lebensohl", "name": "Lebensohl", "children": []},
+        {
+            "id": "five-card-majors",
+            "name": "5 Card Majors",
+            "children": [
+                {
+                    "id": "five-cm-opener",
+                    "name": "Opening bids",
+                    "children": [],
+                },
+                {
+                    "id": "five-cm-responder-bid-one",
+                    "name": "Responder's bid",
+                    "children": [],
+                },
+            ],
+            "any": True,
+        },
     ]
     return {"conventions": conventions}
 
 
 def conventions_selected(params: dict) -> dict:
+    if not params["conventions"]:
+        return {"error": "No convention selected"}
+
     for convention in params["conventions"]:
         if convention not in CONVENTION_FUNCTIONS:
             return {"error": "Invalid convention name"}
