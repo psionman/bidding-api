@@ -13,17 +13,19 @@ from bidding_conventions.constants import (
 class Question:
     def __init__(
         self,
+        theme: str,
         title: str,
         preamble: str,
         question: str,
-        options: list[str],
+        options: list[str] | None,
         correct_response: str,
         description: str,
     ) -> None:
+        self.theme = theme
         self.title = title
         self.preamble = preamble
         self.question = question
-        self.options = options
+        self.options = options if options else []
         self.correct_response = correct_response
         self.description = description
         # self.display()
@@ -31,6 +33,7 @@ class Question:
     @property
     def response(self) -> dict:
         return {
+            "theme": self.theme,
             "title": self.title,
             "subtitle": self._build_subtitle(),
             "preamble": self._build_preamble(),

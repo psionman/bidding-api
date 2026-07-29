@@ -23,8 +23,6 @@ DEFEND_ONE_NT = 18
 CONVENTION_TITLE = "Asptro defence of 1NT"
 CONVENTION_DESCRIPTION = get_description("asptro.html")
 
-IMPLIED_SUIT = {"2C": "H", "2D": "S", "2H": "H", "2S": "S", "2NT": "minors"}
-
 
 class Overcaller:
     OPTIONS = ["2C", "2D", "2H", "2S", "2NT", "3C", "3D", "X", "P"]
@@ -51,7 +49,8 @@ class Overcaller:
         points = self._random_points()
         correct = self._extreme_points_adjustment(points, correct_response)
         return Question(
-            title=CONVENTION_TITLE,
+            theme=CONVENTION_TITLE,
+            title="",
             description=CONVENTION_DESCRIPTION,
             preamble=self._build_preamble(holding, points),
             question=WHAT_IS_YOUR_BID,
@@ -92,7 +91,14 @@ class AdvancersBid:
         advancers_hand = board.hands["W"]
         advancers_bid = self._advancers_bid(overcaller_bid, advancers_hand)
 
-        suit = IMPLIED_SUIT[overcaller_bid]
+        implied_suit = {
+            "2C": "H",
+            "2D": "S",
+            "2H": "H",
+            "2S": "S",
+            "2NT": "minors",
+        }
+        suit = implied_suit[overcaller_bid]
         if suit == "minors":
             cards = f"{advancers_hand.clubs}C and {advancers_hand.diamonds}D"
         else:
@@ -103,7 +109,8 @@ class AdvancersBid:
             f" and {YOUR_HOLDING} {cards} and {advancers_hand.hcp} {POINTS}."
         )
         return Question(
-            title=CONVENTION_TITLE,
+            theme=CONVENTION_TITLE,
+            title="",
             description=CONVENTION_DESCRIPTION,
             preamble=preamble,
             question=WHAT_IS_YOUR_BID,
@@ -220,7 +227,8 @@ class AdvancerInterpretation:
         preamble = f"{OPENER_OPENS_1NT} {PARTNERS_OVERCALL} {partners_bid}"
         options = [item[1] for item in self.OPTIONS]
         return Question(
-            title=CONVENTION_TITLE,
+            theme=CONVENTION_TITLE,
+            title="",
             description=CONVENTION_DESCRIPTION,
             preamble=preamble,
             question=PARTNERS_HOLDING,
