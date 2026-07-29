@@ -8104,3 +8104,31 @@
 {"event": "\"GET //ensure-csrf/?_=1785319702359 HTTP/1.1\" 200 97", "timestamp": "2026-07-29T10:08:22.364681Z", "level": "info", "logger": "django.server"}
 {"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-07-29T10:08:22.376768Z", "level": "info", "logger": "django.server"}
 {"event": "\"POST /get-conventions/ HTTP/1.1\" 200 423", "timestamp": "2026-07-29T10:08:22.380066Z", "level": "info", "logger": "django.server"}
+{"event": "/home/jeff/projects/bridge/bidding-conventions-api/src/bidding_conventions/application.py changed, reloading.", "timestamp": "2026-07-29T10:48:46.522718Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-07-29T10:48:46.754792Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "/home/jeff/projects/bridge/bidding-conventions-api/src/bidding_conventions/application.py changed, reloading.", "timestamp": "2026-07-29T10:49:47.282260Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-07-29T10:49:47.521752Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "/home/jeff/projects/bridge/bidding-conventions-api/src/bidding_conventions/application.py changed, reloading.", "timestamp": "2026-07-29T10:53:46.004059Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-07-29T10:53:46.207797Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-07-29T11:04:45.172817Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909456", "timestamp": "2026-07-29T11:04:56.873066Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET //ensure-csrf/?_=1785323096858 HTTP/1.1\" 200 97", "timestamp": "2026-07-29T11:04:56.873404Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909456", "timestamp": "2026-07-29T11:04:56.880168Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET //ensure-csrf/?_=1785323096877 HTTP/1.1\" 200 97", "timestamp": "2026-07-29T11:04:56.888493Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-07-29T11:04:56.888754Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 423", "timestamp": "2026-07-29T11:04:56.893036Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-07-29T11:04:56.907110Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909456", "timestamp": "2026-07-29T11:04:56.907298Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-07-29T11:04:56.922144Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909456", "timestamp": "2026-07-29T11:04:56.922373Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 423", "timestamp": "2026-07-29T11:04:56.927082Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-07-29T11:04:56.934868Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909456", "timestamp": "2026-07-29T11:04:56.935024Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-07-29T11:04:56.939585Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 423", "timestamp": "2026-07-29T11:04:56.942206Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 423", "timestamp": "2026-07-29T11:04:56.950545Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 423", "timestamp": "2026-07-29T11:04:56.978982Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909456", "timestamp": "2026-07-29T11:05:06.976276Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET //ensure-csrf/?_=1785323106976 HTTP/1.1\" 200 97", "timestamp": "2026-07-29T11:05:07.004790Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-07-29T11:05:07.053849Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 423", "timestamp": "2026-07-29T11:05:07.057181Z", "level": "info", "logger": "django.server"}

@@ -24,6 +24,14 @@ def ensure_csrf(request):
 
 
 @method_decorator(csrf_exempt, name="dispatch")
+class StaticData(View):
+    def get(self, request):
+        return JsonResponse(
+            app.static_data(request.META.get("REMOTE_ADDR")), safe=False
+        )
+
+
+@method_decorator(csrf_exempt, name="dispatch")
 class GetConventions(View):
     def post(self, request):
         return handle_request(request, app.get_conventions)

@@ -1,5 +1,7 @@
 import random
 
+from bidding_conventions.images import card_images
+
 from bidding_conventions.asptro import question as asptro_question
 from bidding_conventions.five_card_majors.opener import (
     question as fcm_opener_question,
@@ -17,6 +19,17 @@ CONVENTION_FUNCTIONS = {
     "five-cm-opener": fcm_opener_question,
     "five-cm-responder-bid-one": fcm_responder_question,
 }
+
+
+# ─────────────────────────────
+# Static / bootstrap
+# ─────────────────────────────
+def static_data(ip_address: str) -> dict[str, object]:
+    """Return a dict of static data."""
+    context = {
+        "card_images": card_images,
+    }
+    return context
 
 
 def get_conventions(params: dict) -> dict:

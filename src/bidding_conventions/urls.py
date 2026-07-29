@@ -6,6 +6,7 @@ urlpatterns = [
     path("", views.HomePageView.as_view(), name="home"),
     path("about/", views.AboutPageView.as_view(), name="about"),
     path("ensure-csrf/", views.ensure_csrf),
+    path("static-data/", views.StaticData.as_view()),
     path("get-conventions/", views.GetConventions.as_view()),
     path("conventions-selected/", views.ConventionsSelected.as_view()),
 ]
