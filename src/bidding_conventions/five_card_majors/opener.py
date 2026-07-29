@@ -16,6 +16,8 @@ CONVENTION_THEME = "5 Card Majors"
 CONVENTION_TITLE = "opening bid"
 CONVENTION_DESCRIPTION = get_description("fcm_opening.html")
 
+SUIT_ORDER = ["S", "H", "C", "D"]
+
 
 class Opener:
     @property
@@ -34,7 +36,13 @@ class Opener:
             question=WHAT_IS_YOUR_BID,
             options=None,
             correct_response=correct,
+            hand_cards=self._sort_hand_cards(hand),
         )
+
+    def _sort_hand_cards(self, hand: Hand) -> list[str]:
+        sorted_hand = Hand.sort_card_list(hand.cards, SUIT_ORDER)
+        hand_cards = [card.name for card in sorted_hand]
+        return hand_cards
 
     def _get_hand(self) -> Hand:
         dealer = Dealer()

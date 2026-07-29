@@ -20,6 +20,7 @@ class Question:
         options: list[str] | None,
         correct_response: str,
         description: str,
+        hand_cards: list[str] | None = None,
     ) -> None:
         self.theme = theme
         self.title = title
@@ -28,6 +29,7 @@ class Question:
         self.options = options if options else []
         self.correct_response = correct_response
         self.description = description
+        self.hand_cards = hand_cards
         # self.display()
 
     @property
@@ -41,6 +43,7 @@ class Question:
             "options": self._build_options(),
             "correct_response": self.correct_response,
             "description": self.description,
+            "hand_cards": self.hand_cards,
         }
 
     def display(self) -> None:
@@ -51,7 +54,8 @@ class Question:
             # f"question: {self.question}",
             f"options: {self._build_options()}",
             f"correct_response: {self.correct_response}",
-            # f"description: {self.description}"
+            # f"description: {self.description}",
+            f"hand_cards: {self.hand_cards}",
         )
 
     def _build_subtitle(self) -> str:
