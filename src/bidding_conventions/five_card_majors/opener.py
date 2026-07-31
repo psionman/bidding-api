@@ -2,7 +2,7 @@
 
 import random
 
-from bfgdealer.dealer_solo import Dealer
+# from bfgdealer.dealer_solo import Dealer
 from bridgeobjects import BALANCED_SHAPES, Hand
 
 from bidding_conventions.common import hand_shape
@@ -10,13 +10,12 @@ from bidding_conventions.constants import (
     WHAT_IS_YOUR_BID,
 )
 from bidding_conventions.descriptions import get_description
+from bidding_conventions.hand import opening_one_hand
 from bidding_conventions.question import Question
 
 CONVENTION_THEME = "5 Card Majors"
 CONVENTION_TITLE = "opening bid"
 CONVENTION_DESCRIPTION = get_description("fcm_opening.html")
-
-SUIT_ORDER = ["S", "H", "C", "D"]
 
 
 class Opener:
@@ -25,8 +24,7 @@ class Opener:
         """
         Build the question.
         """
-        hand = self._get_hand()
-        # hand = Hand("AQ43.KQ654.K3.95")
+        hand = opening_one_hand()
         correct = self._correct_reponse(hand).upper()
         return Question(
             theme=CONVENTION_THEME,
@@ -36,21 +34,12 @@ class Opener:
             question=WHAT_IS_YOUR_BID,
             options=None,
             correct_response=correct,
-            hand_cards=self._sort_hand_cards(hand),
+            hand_cards=hand.sorted_card_names,
+            vulnerability=hand.vulnerability,
+            dealer=hand.dealer,
+            auction=hand.auction + ["cursor"],
+            display_elements=["hand", "auction"],
         )
-
-    def _sort_hand_cards(self, hand: Hand) -> list[str]:
-        sorted_hand = Hand.sort_card_list(hand.cards, SUIT_ORDER)
-        hand_cards = [card.name for card in sorted_hand]
-        return hand_cards
-
-    def _get_hand(self) -> Hand:
-        dealer = Dealer()
-        found = False
-        stage = dealer.set_hands_list.index("Opening ones")
-        while not found:
-            board = dealer.get_set_hand([stage], "N")
-            return board.hands["N"]
 
     def _build_preamble(self, hand: Hand) -> str:
         return f"You hold {hand_shape(hand)} and have {hand.hcp} points"

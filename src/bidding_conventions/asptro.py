@@ -2,7 +2,7 @@
 
 import random
 
-from bfgdealer.dealer_duo import Dealer
+from bfgdealer.dealer_bidding import Dealer
 from bridgeobjects import Board, Card, Hand
 
 from bidding_conventions.common import hand_strength, suit_html
@@ -11,12 +11,12 @@ from bidding_conventions.constants import (
     PARTNERS_HOLDING,
     PARTNERS_OVERCALL,
     POINTS,
-    RANDOM_MINOR,
     WHAT_IS_YOUR_BID,
     YOUR_HOLDING,
     HandStrength,
 )
 from bidding_conventions.descriptions import get_description
+from bidding_conventions.hand import asptro_overcaller_hand
 from bidding_conventions.question import Question, random_minor_suit
 
 DEFEND_ONE_NT = 18
@@ -26,18 +26,35 @@ CONVENTION_DESCRIPTION = get_description("asptro.html")
 
 class Overcaller:
     OPTIONS = ["2C", "2D", "2H", "2S", "2NT", "3C", "3D", "X", "P"]
+    # HOLDINGS = [
+    #     (f"4H and 5{RANDOM_MINOR}", "2C"),
+    #     (f"4S and 5{RANDOM_MINOR}", "2D"),
+    #     (f"5H and 4{RANDOM_MINOR}", "2C"),
+    #     (f"5S and 4{RANDOM_MINOR}", "2D"),
+    #     ("5H and 4S", "2D"),
+    #     ("5S and 4H", "2C"),
+    #     ("5H and 5S", "2D"),
+    #     ("4H and 4S", "P"),
+    #     ("6H", "2H"),
+    #     ("6S", "2S"),
+    #     ("5C and 5D", "2NT"),
+    # ]
     HOLDINGS = [
-        (f"4H and 5{RANDOM_MINOR}", "2C"),
-        (f"4S and 5{RANDOM_MINOR}", "2D"),
-        (f"5H and 4{RANDOM_MINOR}", "2C"),
-        (f"5S and 4{RANDOM_MINOR}", "2D"),
-        ("5H and 4S", "2D"),
-        ("5S and 4H", "2C"),
-        ("5H and 5S", "2D"),
-        ("4H and 4S", "P"),
-        ("6H", "2H"),
-        ("6S", "2S"),
-        ("5C and 5D", "2NT"),
+        ({"H": 4, "C": 5}, "2C"),
+        ({"H": 4, "D": 5}, "2C"),
+        ({"S": 4, "C": 5}, "2D"),
+        ({"S": 4, "D": 5}, "2D"),
+        ({"H": 5, "C": 4}, "2C"),
+        ({"H": 5, "D": 4}, "2C"),
+        ({"S": 5, "C": 4}, "2D"),
+        ({"S": 5, "D": 4}, "2D"),
+        ({"H": 5, "S": 4}, "2C"),
+        ({"S": 5, "H": 4}, "2D"),
+        ({"S": 5, "H": 5}, "2D"),
+        ({"S": 4, "H": 4}, "P"),
+        ({"H": 6, "S": 2}, "2H"),
+        ({"S": 6, "H": 2}, "2S"),
+        ({"C": 5, "D": 5}, "2NT"),
     ]
 
     @property
@@ -46,16 +63,23 @@ class Overcaller:
         Pick a holding, pick points, adjust for extremes, build the question.
         """
         holding, correct_response = self._random_holding()
-        points = self._random_points()
-        correct = self._extreme_points_adjustment(points, correct_response)
+        points = (9, 15)
+        hand = asptro_overcaller_hand(holding, points)
+        correct = self._extreme_points_adjustment(hand.hcp, correct_response)
         return Question(
             theme=CONVENTION_TITLE,
             title="",
             description=CONVENTION_DESCRIPTION,
-            preamble=self._build_preamble(holding, points),
-            question=WHAT_IS_YOUR_BID,
+            # preamble=self._build_preamble(holding, points),
+            preamble=f"You are N.{WHAT_IS_YOUR_BID}",
+            question="",
             options=[],
             correct_response=correct,
+            display_elements=["preamble", "auction", "hand"],
+            auction=["1NT", "cursor"],
+            hand_cards=hand.sorted_card_names,
+            dealer=hand.dealer,
+            vulnerability=hand.vulnerability,
         )
 
     @staticmethod
@@ -116,6 +140,7 @@ class AdvancersBid:
             question=WHAT_IS_YOUR_BID,
             options=[],
             correct_response=advancers_bid,
+            display_elements=["preamble"],
         )
 
     def _get_board(self) -> Board:
@@ -234,13 +259,14 @@ class AdvancerInterpretation:
             question=PARTNERS_HOLDING,
             options=options,
             correct_response=correct_response,
+            display_elements=["preamble"],
         )
 
 
 def question() -> Question:
     classes = [
         Overcaller(),
-        AdvancersBid(),
-        AdvancerInterpretation(),
+        # AdvancersBid(),
+        # AdvancerInterpretation(),
     ]
     return random.choice(classes).question

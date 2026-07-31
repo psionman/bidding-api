@@ -1,5 +1,6 @@
 import random
 import re
+from enum import Enum
 
 from bidding_conventions.constants import (
     RANDOM_MINOR,
@@ -8,6 +9,13 @@ from bidding_conventions.constants import (
     SUIT_MAP,
     SUIT_RE,
 )
+
+
+class DisplayElements(Enum):
+    HAND = "hand"
+    AUCTION = "auction"
+    PREAMBLE = "preamble"
+    BIDDING_BOX = "bidding_box"
 
 
 class Question:
@@ -21,7 +29,12 @@ class Question:
         correct_response: str,
         description: str,
         hand_cards: list[str] | None = None,
+        vulnerability: str | None = None,
+        dealer: str | None = None,
+        auction: list[str] | None = None,
+        display_elements: list[str] | None = None,
     ) -> None:
+
         self.theme = theme
         self.title = title
         self.preamble = preamble
@@ -30,10 +43,17 @@ class Question:
         self.correct_response = correct_response
         self.description = description
         self.hand_cards = hand_cards
+        self.vulnerability = vulnerability
+        self.dealer = dealer
+        self.auction = auction or []
+        self.display_elements = display_elements or []
         # self.display()
 
     @property
     def response(self) -> dict:
+        for element in self.display_elements:
+            if element not in [e.value for e in DisplayElements]:
+                raise ValueError(f"Invalid display element: {element}")
         return {
             "theme": self.theme,
             "title": self.title,
@@ -44,6 +64,10 @@ class Question:
             "correct_response": self.correct_response,
             "description": self.description,
             "hand_cards": self.hand_cards,
+            "vulnerability": self.vulnerability,
+            "dealer": self.dealer,
+            "auction": self.auction,
+            "display_elements": self.display_elements,
         }
 
     def display(self) -> None:
@@ -56,6 +80,7 @@ class Question:
             f"correct_response: {self.correct_response}",
             # f"description: {self.description}",
             f"hand_cards: {self.hand_cards}",
+            f"auction: {self.auction}",
         )
 
     def _build_subtitle(self) -> str:

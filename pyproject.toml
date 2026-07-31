@@ -29,6 +29,9 @@ disallow_untyped_defs = true
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 
+[tool.uv.sources]
+bfgdealer = { path = "../../bfg/bfgdealer", editable = true }
+
 [dependency-groups]
 dev = [
     "ruff>=0.15.12",

@@ -49,18 +49,25 @@ wheels = [
 
 [[package]]
 name = "bfgdealer"
-version = "0.0.25"
-source = { registry = "https://pypi.org/simple" }
+version = "0.0.27"
+source = { editable = "../../bfg/bfgdealer" }
 dependencies = [
     { name = "bfgbidding" },
     { name = "bridgeobjects" },
     { name = "endplay" },
     { name = "termcolor" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f1/b0/97054694dafb5e1f8c5c5f04dd6910b3eb845463473e93cdf114b7169a08/bfgdealer-0.0.25.tar.gz", hash = "sha256:febd1e54ab5ee3b88d0c37ac77f40cb29c34e0d05e6682a648a32418197ae364", size = 19441, upload-time = "2026-01-28T15:38:07.39Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/2b/9b/2b58ecedba5431959e1029a02986bb533fcbdc73e2c23502672c7fcb11dd/bfgdealer-0.0.25-py3-none-any.whl", hash = "sha256:737060f43d2f9732b27d95ddf181e5194580118d3d6fdf5f507875bb31afb56e", size = 22631, upload-time = "2026-01-28T15:38:10.596Z" },
+
+[package.metadata]
+requires-dist = [
+    { name = "bfgbidding" },
+    { name = "bridgeobjects", specifier = ">=0.1.30" },
+    { name = "endplay", specifier = ">=0.5.12" },
+    { name = "termcolor", specifier = ">=3.1.0" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest" }]
 
 [[package]]
 name = "bidding-conventions"
@@ -82,7 +89,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "bfgdealer", specifier = ">=0.0.25" },
+    { name = "bfgdealer", editable = "../../bfg/bfgdealer" },
     { name = "django", specifier = ">=6.0.3" },
     { name = "django-cors-headers", specifier = ">=4.9.0" },
     { name = "pytest", specifier = ">=9.0.2" },
