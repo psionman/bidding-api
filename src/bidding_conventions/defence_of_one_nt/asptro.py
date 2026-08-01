@@ -186,7 +186,7 @@ class AdvancerInterpretation:
         selection = random.choice(self.OPTIONS)
         partners_bid = selection[0]
         correct_response = selection[1]
-        preamble = "With this auction, what is partner's holding?"
+        preamble = "With this auction, what is partner's ('S') holding?"
         options = [item[1] for item in self.OPTIONS]
         return Question(
             theme=CONVENTION_TITLE,
@@ -196,7 +196,8 @@ class AdvancerInterpretation:
             options=options,
             correct_response=correct_response,
             display_elements=["preamble", "auction"],
-            auction=["1NT", partners_bid],
+            auction=["1NT", partners_bid, "P"],
+            dealer="E",
         )
 
 
@@ -208,8 +209,8 @@ def random_holding() -> tuple[str, str]:
 
 def question() -> Question:
     classes = [
-        # Overcaller(),
-        # AdvancersBid(),
+        Overcaller(),
+        AdvancersBid(),
         AdvancerInterpretation(),
     ]
     return random.choice(classes).question

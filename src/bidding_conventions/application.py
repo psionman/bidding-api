@@ -1,6 +1,8 @@
 import random
 
-from bidding_conventions.asptro import question as asptro_question
+from bidding_conventions.defence_of_one_nt.asptro import (
+    question as asptro_question,
+)
 from bidding_conventions.five_card_majors.opener import (
     question as fcm_opener_question,
 )
