@@ -32,34 +32,6 @@ def suit_html(suit_str: str) -> str:
 def hand_shape(hand: Hand) -> str:
     spades = f"{hand.spades}S, " if hand.spades else ""
     hearts = f"{hand.hearts}H, " if hand.hearts else ""
-    diams = f"{hand.diams}D, " if hand.diams else ""
+    diams = f"{hand.diamonds}D, " if hand.diamonds else ""
     clubs = f"{hand.clubs}C" if hand.clubs else ""
     return f"{spades}{hearts}{diams}{clubs}"
-
-
-# class ConventionClass:
-#     @property
-#     def question(self) -> Question:
-#         """Build the question."""
-#         hand = self._get_hand()
-#         return Question(
-#             theme=CONVENTION_THEME,
-#             title=CONVENTION_TITLE,
-#             description=CONVENTION_DESCRIPTION,
-#             preamble=self._build_preamble(hand),
-#             question=WHAT_IS_YOUR_BID,
-#             options=None,
-#            correct_response=self._correct_reponse(hand).upper(),
-#         )
-#        def _get_hand(self) -> Hand:
-#            dealer = Dealer()
-#            stage = dealer.set_hands_list.index("Opening ones")
-#
-#     def _build_preamble(self, hand: Hand) -> str:
-#         return (
-#             f"Partner has opened xx and you hold {hand_shape(hand)} "
-#             f"and have {hand.hcp} points"
-#         )
-
-#     def _correct_reponse(self, hand: Hand) -> str:
-#         return "P"

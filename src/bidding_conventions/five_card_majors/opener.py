@@ -30,15 +30,14 @@ class Opener:
             theme=CONVENTION_THEME,
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=self._build_preamble(hand),
-            question=WHAT_IS_YOUR_BID,
+            preamble=WHAT_IS_YOUR_BID,
             options=None,
             correct_response=correct,
             hand_cards=hand.sorted_card_names,
             vulnerability=hand.vulnerability,
             dealer=hand.dealer,
             auction=hand.auction + ["cursor"],
-            display_elements=["hand", "auction"],
+            display_elements=["hand", "auction", "preamble"],
         )
 
     def _build_preamble(self, hand: Hand) -> str:
@@ -51,7 +50,7 @@ class Opener:
             return "1H"
         if hand.spades >= 5 and hand.spades > hand.hearts:
             return "1S"
-        if hand.diams >= 4 and hand.diams > hand.clubs:
+        if hand.diamonds >= 4 and hand.diamonds > hand.clubs:
             return "1D"
         return "1C"
 
