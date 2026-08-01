@@ -7,8 +7,6 @@ from bridgeobjects import Card, Hand
 from bidding_conventions.common import hand_strength, suit_html
 from bidding_conventions.constants import (
     OPENER_OPENS_1NT,
-    PARTNERS_HOLDING,
-    PARTNERS_OVERCALL,
     POINTS,
     WHAT_IS_YOUR_BID,
     YOUR_HOLDING,
@@ -188,17 +186,17 @@ class AdvancerInterpretation:
         selection = random.choice(self.OPTIONS)
         partners_bid = selection[0]
         correct_response = selection[1]
-        preamble = f"{OPENER_OPENS_1NT} {PARTNERS_OVERCALL} {partners_bid}"
+        preamble = "With this auction, what is partner's holding?"
         options = [item[1] for item in self.OPTIONS]
         return Question(
             theme=CONVENTION_TITLE,
             title="",
             description=CONVENTION_DESCRIPTION,
             preamble=preamble,
-            question=PARTNERS_HOLDING,
             options=options,
             correct_response=correct_response,
-            display_elements=["preamble"],
+            display_elements=["preamble", "auction"],
+            auction=["1NT", partners_bid],
         )
 
 
@@ -211,7 +209,7 @@ def random_holding() -> tuple[str, str]:
 def question() -> Question:
     classes = [
         # Overcaller(),
-        AdvancersBid(),
-        # AdvancerInterpretation(),
+        # AdvancersBid(),
+        AdvancerInterpretation(),
     ]
     return random.choice(classes).question
