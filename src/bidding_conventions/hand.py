@@ -2,7 +2,7 @@ from bfgdealer.dealer_bidding import Dealer as BiddingDealer
 from bfgdealer.dealer_solo import Dealer as SoloDealer
 
 # from bfgdealer.dealer_duo import Dealer as DuoDealer
-from bridgeobjects import SEATS, VULNERABILITY
+from bridgeobjects import SEATS, SUITS, VULNERABILITY
 from bridgeobjects import Hand as HandBase
 
 SUIT_ORDER = ["S", "H", "C", "D"]
@@ -27,6 +27,26 @@ class Hand(HandBase):
     def vulnerability(self) -> str:
         self._vulnerability = VULNERABILITY[self.hand_number % 16]
         return self._vulnerability
+
+    @property
+    def losers(self) -> int:
+        return self._get_loser_count()
+
+    def _get_loser_count(self) -> int:
+        losers = 0
+        for suit in SUITS:
+            card_points = [
+                card.high_card_points for card in self.cards_by_suit[suit]
+            ]
+            hcps = sorted(card_points, reverse=True)
+            if len(hcps) > 0 and hcps[0] == 2:
+                losers += min(len(hcps), 3)
+                continue
+            for rank in hcps[:3]:
+                if rank <= 1:
+                    losers += 1
+                pass
+        return losers
 
 
 def asptro_overcaller_hand(holding: str, points: tuple[int, int]) -> Hand:

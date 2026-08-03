@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 NO_DESCRIPTION = "No description found"
 
 style_block = """
@@ -212,19 +211,22 @@ style_block_large = """
 
 
 def get_description(file: str) -> str:
-    loop = True
+    loop = 0
     parent = Path(__file__)
-    while loop:
+    while loop < 10:
         path = Path(parent, "html", file)
         if not path.parent:
-            loop = False
+            loop = 10
             return NO_DESCRIPTION
 
         if not Path(parent, "html", file).exists():
             parent = parent.parent
+            loop += 1
             continue
 
         with open(Path(parent, "html", file)) as f_description:
             description = f_description.read()
 
         return f"{style_block_large}{description}"
+    print(f"Could not find description for {file}")
+    return NO_DESCRIPTION

@@ -33,6 +33,7 @@ class Question:
         dealer: str | None = None,
         auction: list[str] | None = None,
         display_elements: list[str] | None = None,
+        suppressed_bids: list | None = None,
     ) -> None:
 
         self.theme = theme
@@ -47,6 +48,7 @@ class Question:
         self.dealer = dealer
         self.auction = auction or []
         self.display_elements = display_elements or []
+        self.suppressed_bids = suppressed_bids or []
         # self.display()
 
     @property
@@ -68,6 +70,7 @@ class Question:
             "dealer": self.dealer,
             "auction": self.auction,
             "display_elements": self.display_elements,
+            "suppressed_bids": self.suppressed_bids,
         }
 
     def display(self) -> None:
@@ -81,6 +84,7 @@ class Question:
             # f"description: {self.description}",
             f"hand_cards: {self.hand_cards}",
             f"auction: {self.auction}",
+            f"suppressed_bids: {self.suppressed_bids}",
         )
 
     def _build_subtitle(self) -> str:

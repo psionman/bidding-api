@@ -3,6 +3,9 @@ import random
 from bidding_conventions.defence_of_one_nt.asptro import (
     question as asptro_question,
 )
+from bidding_conventions.defence_of_one_nt.multi_landy import (
+    question as multi_landy_question,
+)
 from bidding_conventions.five_card_majors.opener import (
     question as fcm_opener_question,
 )
@@ -13,7 +16,7 @@ from bidding_conventions.images import card_images
 
 CONVENTION_FUNCTIONS = {
     "asptro": asptro_question,
-    # 'multi-landy': _get_mutli_landy,
+    "multi-landy": multi_landy_question,
     # 'ghestem': _get_ghestem,
     # 'puppet-stayman': _get_puppet_stayman,
     # 'lebensohl': _get_lebensol,
