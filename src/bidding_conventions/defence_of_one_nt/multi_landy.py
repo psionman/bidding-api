@@ -15,30 +15,14 @@ from bidding_conventions.constants import (
 )
 from bidding_conventions.descriptions import get_description
 from bidding_conventions.hand import (
-    asptro_advancers_hand,
-    asptro_overcaller_hand,
+    one_nt_advancers_hand,
+    one_nt_overcaller_hand,
 )
 from bidding_conventions.question import Question
 
 DEFEND_ONE_NT = 18
 CONVENTION_TITLE = "Multi-Landy defence of 1NT"
 CONVENTION_DESCRIPTION = get_description("mullti_landy.html")
-
-OVERCALLERS_HOLDINGS = [
-    ({"H": 5, "S": 4}, "2C"),
-    ({"S": 5, "H": 4}, "2C"),
-    ({"H": 5, RANDOM_MINOR: 4}, "2H"),
-    ({"H": 5, RANDOM_MINOR: 4}, "2H"),
-    ({"S": 5, RANDOM_MINOR: 4}, "2S"),
-    ({"S": 5, RANDOM_MINOR: 4}, "2S"),
-    ({"H": 5, "S": 4}, "P"),
-    ({"S": 5, "H": 4}, "P"),
-    ({"H": 6, "S": 2}, "2D"),
-    ({"S": 6, "H": 2}, "2D"),
-    ({"C": 6, RANDOM_MAJOR: 2}, "2D"),
-    ({"D": 6, RANDOM_MAJOR: 2}, "2D"),
-    ({"C": 5, "D": 5}, "2NT"),
-]
 
 
 class Overcaller:
@@ -48,8 +32,8 @@ class Overcaller:
         Pick a holding, pick points, adjust for extremes, build the question.
         """
         holding, correct_response = _random_holding()
-        points = (9, 15)
-        hand = asptro_overcaller_hand(holding, points)
+        points = (9, 18)
+        hand = one_nt_overcaller_hand(holding, points)
         correct = self._extreme_points_adjustment(hand.hcp, correct_response)
         return Question(
             theme=CONVENTION_TITLE,
@@ -89,7 +73,7 @@ class AdvancersBid:
     def question(self) -> Question:
         holding, overcallers_bid = _random_holding()
         points = (10, 14)
-        hand = asptro_advancers_hand(holding, points)
+        hand = one_nt_advancers_hand(holding, points)
         advancers_bid = self._advancers_bid(overcallers_bid, hand)
         auction = ["1NT", overcallers_bid, "P", "cursor"]
 
@@ -161,7 +145,6 @@ class AdvancerInterpretation:
         options = [item[1] for item in self.OPTIONS]
         return Question(
             theme=CONVENTION_TITLE,
-            title="",
             description=CONVENTION_DESCRIPTION,
             preamble=preamble,
             options=options,
@@ -183,8 +166,25 @@ def question() -> Question:
 
 def _random_holding() -> tuple[str, str]:
     global last_response
+
+    overcallers_holdings: list[tuple[dict[str, int], str]] = [
+        ({"H": 5, "S": 4}, "2C"),
+        ({"S": 5, "H": 4}, "2C"),
+        ({"H": 5, RANDOM_MINOR: 4}, "2H"),
+        ({"H": 5, RANDOM_MINOR: 4}, "2H"),
+        ({"S": 5, RANDOM_MINOR: 4}, "2S"),
+        ({"S": 5, RANDOM_MINOR: 4}, "2S"),
+        ({"H": 5, "S": 4}, "P"),
+        ({"S": 5, "H": 4}, "P"),
+        ({"H": 6, "S": 2}, "2D"),
+        ({"S": 6, "H": 2}, "2D"),
+        ({"C": 6, RANDOM_MAJOR: 2}, "2D"),
+        ({"D": 6, RANDOM_MAJOR: 2}, "2D"),
+        ({"C": 5, "D": 5}, "2NT"),
+    ]
+
     while True:
-        holding, correct_response = random.choice(OVERCALLERS_HOLDINGS)
+        holding, correct_response = random.choice(overcallers_holdings)
         if correct_response == "P" or correct_response == last_response:
             continue
         random_minor = random.choice(["C", "D"])

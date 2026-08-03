@@ -14,8 +14,8 @@ from bidding_conventions.constants import (
 )
 from bidding_conventions.descriptions import get_description
 from bidding_conventions.hand import (
-    asptro_advancers_hand,
-    asptro_overcaller_hand,
+    one_nt_advancers_hand,
+    one_nt_overcaller_hand,
 )
 from bidding_conventions.question import Question, random_minor_suit
 
@@ -50,7 +50,7 @@ class Overcaller:
         """
         holding, correct_response = random_holding()
         points = (9, 15)
-        hand = asptro_overcaller_hand(holding, points)
+        hand = one_nt_overcaller_hand(holding, points)
         correct = self._extreme_points_adjustment(hand.hcp, correct_response)
         return Question(
             theme=CONVENTION_TITLE,
@@ -90,7 +90,7 @@ class AdvancersBid:
     def question(self) -> Question:
         holding, overcallers_bid = random_holding()
         points = (9, 15)
-        hand = asptro_advancers_hand(holding, points)
+        hand = one_nt_advancers_hand(holding, points)
         advancers_bid = self._advancers_bid(overcallers_bid, hand)
         print(advancers_bid)
 
@@ -190,7 +190,6 @@ class AdvancerInterpretation:
         options = [item[1] for item in self.OPTIONS]
         return Question(
             theme=CONVENTION_TITLE,
-            title="",
             description=CONVENTION_DESCRIPTION,
             preamble=preamble,
             options=options,

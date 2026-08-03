@@ -49,23 +49,23 @@ class Hand(HandBase):
         return losers
 
 
-def asptro_overcaller_hand(holding: str, points: tuple[int, int]) -> Hand:
+def one_nt_overcaller_hand(holding: str, points: tuple[int, int]) -> Hand:
     """
-    Create a hand for ASPTRO overcaller convention.
+    Create a hand for overcaller after 1NT opener.
 
     Args:
         holding: The holding of the hand (e.g., "A K Q J 10 9 8 7 6 5 4 3 2")
-        points: The HCP and distribution points (e.g., (10, 5))
+        points: The HCP  points range (e.g., (9, 15))
 
     Returns:
         Hand: The hand with the specified holding and points
 
-    It requires that W bids 1NT, i.e. is balanced and has 12-14 points
-    N must have 9-16 points nad be ither 2 suited or have a 6+ card suit
+    It requires that opener (W) bids 1NT, i.e. is balanced and has 12-14 points;
+    The next seat (N) must have the relevant points and shape.
     """
     global hand_number
     dealer = BiddingDealer()
-    board = dealer.asptro_overcaller(holding, points)
+    board = dealer.one_nt_overcaller(holding, points)
     hand = board.hands["N"]
     hand.__class__ = Hand
     hand.dealer = board.dealer
@@ -74,10 +74,10 @@ def asptro_overcaller_hand(holding: str, points: tuple[int, int]) -> Hand:
     return hand
 
 
-def asptro_advancers_hand(holding: str, points: tuple[int, int]) -> Hand:
+def one_nt_advancers_hand(holding: str, points: tuple[int, int]) -> Hand:
     global hand_number
     dealer = BiddingDealer()
-    board = dealer.asptro_overcaller(holding, points)
+    board = dealer.one_nt_overcaller(holding, points)
     board.rotate_dealer_to("E")
     hand = board.hands["N"]
     hand.__class__ = Hand

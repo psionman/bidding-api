@@ -13,13 +13,16 @@ from bidding_conventions.five_card_majors.responder import (
     question as fcm_responder_question,
 )
 from bidding_conventions.images import card_images
+from bidding_conventions.miscellaneous.lebensohl import (
+    question as lebensohl_question,
+)
 
 CONVENTION_FUNCTIONS = {
     "asptro": asptro_question,
     "multi-landy": multi_landy_question,
     # 'ghestem': _get_ghestem,
     # 'puppet-stayman': _get_puppet_stayman,
-    # 'lebensohl': _get_lebensol,
+    "lebensohl": lebensohl_question,
     "five-cm-opener": fcm_opener_question,
     "five-cm-responder-bid-one": fcm_responder_question,
 }
@@ -66,8 +69,8 @@ def get_conventions(params: dict) -> dict:
             ],
         },
         # {"id": "ghestem", "name": "Ghestem", "children": []},
+        {"id": "lebensohl", "name": "Lebensohl", "children": []},
         # {"id": "puppet-stayman", "name": "Puppet Stayman", "children": []},
-        # {"id": "lebensohl", "name": "Lebensohl", "children": []},
         {
             "id": "five-card-majors",
             "name": "5 Card Majors",
