@@ -6,11 +6,11 @@ from bfgdealer.dealer_solo import Dealer
 from bridgeobjects import BALANCED_SHAPES, Hand
 
 from bidding_conventions.common import hand_shape
-from bidding_conventions.constants import (
-    WHAT_IS_YOUR_BID,
-)
 from bidding_conventions.descriptions import get_description
 from bidding_conventions.question import Question
+from bidding_conventions.text import Text
+
+txt = Text()
 
 CONVENTION_THEME = "5 Card Majors"
 CONVENTION_TITLE = "Responder"
@@ -29,7 +29,7 @@ class ResponsesToOneClub:
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
             preamble=self._build_preamble(hand),
-            question=WHAT_IS_YOUR_BID,
+            question=txt.WHAT_IS_YOUR_BID,
             options=None,
             correct_response=self._correct_reponse(hand).upper(),
         )
@@ -121,7 +121,7 @@ class ResponsesToOneNoTrumps:
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
             preamble=self._build_preamble(hand),
-            question=WHAT_IS_YOUR_BID,
+            question=txt.WHAT_IS_YOUR_BID,
             options=None,
             correct_response=self._correct_reponse(hand).upper(),
         )
@@ -203,7 +203,7 @@ class ResponseToRebidOneNoTrump:
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
             preamble=self._build_preamble(hand),
-            question=WHAT_IS_YOUR_BID,
+            question=txt.WHAT_IS_YOUR_BID,
             options=None,
             correct_response=self._correct_reponse(hand).upper(),
         )

@@ -4,13 +4,12 @@ import random
 
 from bridgeobjects import Card, Hand
 
-from bidding_conventions.common import get_suppressed_calls, suit_html
+from bidding_conventions.common import get_bid_suppression, suit_html
 from bidding_conventions.constants import (
     OPENER_OPENS_1NT,
     POINTS,
     RANDOM_MAJOR,
     RANDOM_MINOR,
-    WHAT_IS_YOUR_BID,
     YOUR_HOLDING,
 )
 from bidding_conventions.descriptions import get_description
@@ -19,6 +18,9 @@ from bidding_conventions.hand import (
     one_nt_overcaller_hand,
 )
 from bidding_conventions.question import Question
+from bidding_conventions.text import Text
+
+txt = Text()
 
 DEFEND_ONE_NT = 18
 CONVENTION_TITLE = "Multi-Landy defence of 1NT"
@@ -32,13 +34,13 @@ class Overcaller:
         Pick a holding, pick points, adjust for extremes, build the question.
         """
         holding, correct_response = _random_holding()
-        points = (9, 18)
+        points = (9, 15)
         hand = one_nt_overcaller_hand(holding, points)
         correct = self._extreme_points_adjustment(hand.hcp, correct_response)
         return Question(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=WHAT_IS_YOUR_BID,
+            preamble=txt.WHAT_IS_YOUR_BID,
             correct_response=correct,
             display_elements=["preamble", "auction", "hand"],
             auction=["1NT", "cursor"],
@@ -76,19 +78,18 @@ class AdvancersBid:
         hand = one_nt_advancers_hand(holding, points)
         advancers_bid = self._advancers_bid(overcallers_bid, hand)
         auction = ["1NT", overcallers_bid, "P", "cursor"]
-
-        preamble = WHAT_IS_YOUR_BID
+        bid_suppression = get_bid_suppression(auction)
         return Question(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=preamble,
+            preamble=txt.WHAT_IS_YOUR_BID,
             correct_response=advancers_bid,
             hand_cards=hand.sorted_card_names,
             display_elements=["preamble", "auction", "hand"],
             vulnerability=hand.vulnerability,
             auction=auction,
             dealer=hand.dealer,
-            suppressed_bids=get_suppressed_calls(auction),
+            bid_suppression=bid_suppression,
         )
 
     def _advancers_bid(self, overcaller_bid: str, hand: Hand) -> str:

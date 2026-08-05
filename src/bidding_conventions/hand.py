@@ -1,7 +1,6 @@
 from bfgdealer.dealer_bidding import Dealer as BiddingDealer
+from bfgdealer.dealer_duo import Dealer as DuoDealer
 from bfgdealer.dealer_solo import Dealer as SoloDealer
-
-# from bfgdealer.dealer_duo import Dealer as DuoDealer
 from bridgeobjects import SEATS, SUITS, VULNERABILITY
 from bridgeobjects import Hand as HandBase
 
@@ -47,6 +46,21 @@ class Hand(HandBase):
                     losers += 1
                 pass
         return losers
+
+
+def one_nt_openers_hand(dealer: str = "N") -> Hand:
+    global hand_number
+    dealer = DuoDealer()
+    stage = dealer.set_hands_names.index("Weak NT")
+    board = dealer.get_set_hand(stage)
+    hand = board.hands["S"]
+    board.rotate_dealer_to("S")
+    hand.__class__ = Hand
+    hand.dealer = board.dealer
+    hand.auction = [call.name for call in board.auction.calls]
+    hand.hand_number = hand_number
+    hand_number += 1
+    return hand
 
 
 def one_nt_overcaller_hand(holding: str, points: tuple[int, int]) -> Hand:

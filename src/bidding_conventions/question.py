@@ -4,11 +4,12 @@ from enum import Enum
 
 from bidding_conventions.constants import (
     RANDOM_MINOR,
-    SUB_TITLE_PREFIX,
-    SUB_TITLE_SUFFFIX,
     SUIT_MAP,
     SUIT_RE,
 )
+from bidding_conventions.text import Text
+
+txt = Text()
 
 
 class DisplayElements(Enum):
@@ -33,7 +34,7 @@ class Question:
         dealer: str | None = None,
         auction: list[str] | None = None,
         display_elements: list[str] | None = None,
-        suppressed_bids: list | None = None,
+        bid_suppression: list | None = None,
     ) -> None:
 
         self.theme = theme
@@ -48,7 +49,7 @@ class Question:
         self.dealer = dealer
         self.auction = auction or []
         self.display_elements = display_elements or []
-        self.suppressed_bids = suppressed_bids or []
+        self.bid_suppression = bid_suppression or []
         # self.display()
 
     @property
@@ -70,7 +71,7 @@ class Question:
             "dealer": self.dealer,
             "auction": self.auction,
             "display_elements": self.display_elements,
-            "suppressed_bids": self.suppressed_bids,
+            "bid_suppression": self.bid_suppression,
         }
 
     def display(self) -> None:
@@ -84,11 +85,11 @@ class Question:
             # f"description: {self.description}",
             f"hand_cards: {self.hand_cards}",
             f"auction: {self.auction}",
-            f"suppressed_bids: {self.suppressed_bids}",
+            f"bid_suppression: {self.bid_suppression}",
         )
 
     def _build_subtitle(self) -> str:
-        return f"{SUB_TITLE_PREFIX} {self.title} {SUB_TITLE_SUFFFIX}"
+        return f"{txt.SUB_TITLE_PREFIX} {self.title} {txt.SUB_TITLE_SUFFFIX}"
 
     def _build_preamble(self) -> str:
         words = self.preamble.split()

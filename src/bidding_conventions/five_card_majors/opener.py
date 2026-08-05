@@ -5,10 +5,6 @@ import random
 # from bfgdealer.dealer_solo import Dealer
 from bridgeobjects import BALANCED_SHAPES, Hand
 
-from bidding_conventions.common import hand_shape
-from bidding_conventions.constants import (
-    WHAT_IS_YOUR_BID,
-)
 from bidding_conventions.descriptions import get_description
 from bidding_conventions.hand import opening_one_hand
 from bidding_conventions.question import Question
@@ -16,6 +12,9 @@ from bidding_conventions.question import Question
 CONVENTION_THEME = "5 Card Majors"
 CONVENTION_TITLE = "opening bid"
 CONVENTION_DESCRIPTION = get_description("fcm_opening.html")
+from bidding_conventions.text import Text
+
+txt = Text()
 
 
 class Opener:
@@ -30,7 +29,7 @@ class Opener:
             theme=CONVENTION_THEME,
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=WHAT_IS_YOUR_BID,
+            preamble=txt.WHAT_IS_YOUR_BID,
             options=None,
             correct_response=correct,
             hand_cards=hand.sorted_card_names,
@@ -39,9 +38,6 @@ class Opener:
             auction=hand.auction + ["cursor"],
             display_elements=["hand", "auction", "preamble"],
         )
-
-    def _build_preamble(self, hand: Hand) -> str:
-        return f"You hold {hand_shape(hand)} and have {hand.hcp} points"
 
     def _correct_reponse(self, hand: Hand) -> str:
         if 15 <= hand.hcp <= 17 and hand.shape in BALANCED_SHAPES:

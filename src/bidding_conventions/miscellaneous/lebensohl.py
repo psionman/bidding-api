@@ -1,54 +1,89 @@
 import random
 
-from bidding_conventions.constants import WHAT_IS_YOUR_BID
+from bridgeobjects import SUITS
+
+from bidding_conventions.bidding import stoppers_in_bid_suits
+from bidding_conventions.common import get_bid_suppression
 from bidding_conventions.descriptions import get_description
+from bidding_conventions.hand import (
+    Hand,
+    one_nt_openers_hand,
+)
 from bidding_conventions.question import Question
+from bidding_conventions.text import Text
+
+txt = Text()
 
 CONVENTION_TITLE = "Lebensohl"
 CONVENTION_DESCRIPTION = get_description("lebensohl.html")
 
 
-class OvercallOneNt:
+class ResponseToOneNt:
     @property
     def question(self) -> Question:
         global last_response
-        options = [item[1] for item in self.OPTIONS]
+        # holding, correct_response = _random_holding()
+        # points = (9, 18)
+        hand = one_nt_openers_hand(dealer="S")
+        overcall = random.choice(["2D", "2H", "2S", "2NT"])
+        correct_response = self._get_correct_response(hand, [overcall])
+        auction = ["1NT", overcall, "cursor"]
+        print(f"correct_response: {correct_response}")
+        bid_suppression = get_bid_suppression(auction)
+        print(bid_suppression)
         return Question(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=WHAT_IS_YOUR_BID,
-            options=options,
+            preamble=txt.WHAT_IS_YOUR_BID,
             correct_response=correct_response,
-            display_elements=["preamble", "auction"],
-            auction=["1NT", "cursor"],
-            dealer="E",
+            display_elements=["preamble", "auction", "hand"],
+            auction=auction,
+            hand_cards=hand.sorted_card_names,
+            dealer=hand.dealer,
+            vulnerability=hand.vulnerability,
+            bid_suppression=bid_suppression,
         )
 
+    def _get_correct_response(
+        self, hand: Hand, opponents_bids: list[str]
+    ) -> str:
+        overcaller_suit = opponents_bids[0][1]
+        stoppers = stoppers_in_bid_suits(hand, opponents_bids)
 
-def _random_holding() -> tuple[str, str]:
-    # global last_response
-    # while True:
-    #     holding, correct_response = random.choice(OVERCALLERS_HOLDINGS)
-    #     if correct_response == "P" or correct_response == last_response:
-    #         continue
-    #     random_minor = random.choice(["C", "D"])
-    #     random_major = random.choice(["H", "S"])
-    #     if RANDOM_MINOR in holding:
-    #         holding[random_minor] = holding[RANDOM_MINOR]
-    #         holding.pop(RANDOM_MINOR)
-    #     if RANDOM_MAJOR in holding:
-    #         holding[random_major] = holding[RANDOM_MAJOR]
-    #         holding.pop(RANDOM_MAJOR)
-    #     last_response = correct_response
-    #     return holding, correct_response
+        if 11 <= hand.hcp and hand.is_balanced:
+            if stoppers:
+                return "2NT"
+            else:
+                return "3NT"
 
-    return {}, "1C"
+        suit = hand.longest_suit.name
+        suits = list(SUITS)
+        if hand.hcp <= 12 and hand.shape[0] >= 5:
+            if suit == overcaller_suit:
+                return "P"
+            elif overcaller_suit in suits and suits.index(suit) > suits.index(
+                overcaller_suit
+            ):
+                return f"2{suit}"
+            else:
+                return "2NT"
+
+        if hand.hcp <= 9 and hand.shape[0] >= 6:
+            if suit == overcaller_suit:
+                return "P"
+            elif overcaller_suit in suits and suits.index(suit) > suits.index(
+                overcaller_suit
+            ):
+                print(f"suit: {suit}, overcaller_suit: {overcaller_suit}")
+                return f"2{suit}"
+            else:
+                return "2NT"
+        return "P"
 
 
 def question() -> Question:
     classes = [
-        OvercallOneNt(),
-        # Overcaller(),
+        ResponseToOneNt(),
         # AdvancersBid(),
         # AdvancerInterpretation(),
     ]

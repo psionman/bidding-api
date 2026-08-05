@@ -8,7 +8,6 @@ from bidding_conventions.common import hand_strength, suit_html
 from bidding_conventions.constants import (
     OPENER_OPENS_1NT,
     POINTS,
-    WHAT_IS_YOUR_BID,
     YOUR_HOLDING,
     HandStrength,
 )
@@ -18,6 +17,9 @@ from bidding_conventions.hand import (
     one_nt_overcaller_hand,
 )
 from bidding_conventions.question import Question, random_minor_suit
+from bidding_conventions.text import Text
+
+txt = Text()
 
 DEFEND_ONE_NT = 18
 CONVENTION_TITLE = "Asptro defence of 1NT"
@@ -55,7 +57,7 @@ class Overcaller:
         return Question(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=f"You are N.{WHAT_IS_YOUR_BID}",
+            preamble=f"You are N.{txt.WHAT_IS_YOUR_BID}",
             correct_response=correct,
             display_elements=["preamble", "auction", "hand"],
             auction=["1NT", "cursor"],
@@ -94,7 +96,7 @@ class AdvancersBid:
         advancers_bid = self._advancers_bid(overcallers_bid, hand)
         print(advancers_bid)
 
-        preamble = f"You are N.{WHAT_IS_YOUR_BID}"
+        preamble = f"You are N.{txt.WHAT_IS_YOUR_BID}"
         return Question(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,

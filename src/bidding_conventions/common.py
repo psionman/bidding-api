@@ -37,7 +37,7 @@ def hand_shape(hand: Hand) -> str:
     return f"{spades}{hearts}{diams}{clubs}"
 
 
-def get_suppressed_calls(calls: list) -> dict:
+def get_bid_suppression(calls: list) -> dict:
     if "cursor" in calls:
         calls = calls[:-1]
     call = _get_last_call(calls)
