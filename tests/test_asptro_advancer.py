@@ -1,7 +1,9 @@
 import pytest
 from bridgeobjects import Hand
 
-from bidding_conventions.asptro import AdvancersBid
+from bidding_conventions.defence_of_one_nt.asptro import (
+    AdvancersBid,
+)
 
 advancers_bid = AdvancersBid()
 

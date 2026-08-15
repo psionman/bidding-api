@@ -63,6 +63,21 @@ def one_nt_openers_hand(dealer: str = "N") -> Hand:
     return hand
 
 
+def weak_two_openers_hand(dealer: str = "N") -> Hand:
+    global hand_number
+    dealer = DuoDealer()
+    stage = dealer.set_hands_names.index("Weak NT")
+    board = dealer.get_set_hand(stage)
+    hand = board.hands["S"]
+    board.rotate_dealer_to("S")
+    hand.__class__ = Hand
+    hand.dealer = board.dealer
+    hand.auction = [call.name for call in board.auction.calls]
+    hand.hand_number = hand_number
+    hand_number += 1
+    return hand
+
+
 def one_nt_overcaller_hand(holding: str, points: tuple[int, int]) -> Hand:
     """
     Create a hand for overcaller after 1NT opener.
@@ -88,11 +103,28 @@ def one_nt_overcaller_hand(holding: str, points: tuple[int, int]) -> Hand:
     return hand
 
 
-def one_nt_advancers_hand(holding: str, points: tuple[int, int]) -> Hand:
+def one_nt_advancers_hand(
+    holding: dict[str, int], points: tuple[int, int]
+) -> Hand:
     global hand_number
     dealer = BiddingDealer()
     board = dealer.one_nt_overcaller(holding, points)
     board.rotate_dealer_to("E")
+    hand = board.hands["N"]
+    hand.__class__ = Hand
+    hand.dealer = board.dealer
+    hand.hand_number = hand_number
+    hand_number += 1
+    return hand
+
+
+def one_nt_lebensohl_hand(
+    holding: dict[str, int], points: tuple[int, int]
+) -> Hand:
+    global hand_number
+    dealer = BiddingDealer()
+    board = dealer.one_nt_overcaller(holding, points)
+    board.rotate_dealer_to("S")
     hand = board.hands["N"]
     hand.__class__ = Hand
     hand.dealer = board.dealer
@@ -115,6 +147,25 @@ def opening_one_hand() -> Hand:
     return hand
 
 
+def weak_two_opener() -> Hand:
+    global hand_number
+    dealer = SoloDealer()
+    while True:
+        board = dealer.response_to_weak_two_board(0)
+        board.rotate_dealer_to("E")
+        if board.hands["S"].hcp >= 12:
+            break
+    hand = board.hands["N"]
+    hand.__class__ = Hand
+    hand.dealer = board.dealer
+    hand.hand_number = hand_number
+    hand_number += 1
+    openers_hand = board.hands["E"]
+    suit = openers_hand.longest_suit
+    hand.auction = [f"2{suit.name}", "D", "P", "cursor"]
+    return hand
+
+
 def print_hands(board):
     print(f"Dealer: {board.dealer} {board.auction}")
     for seat in SEATS:
@@ -124,5 +175,33 @@ def print_hands(board):
     print("_" * 80)
 
 
-# Global hand number used to calulate vulnerability
+RANK_ORDER = "AKQJT98765432"
+SUIT_ORDER = "SHDC"
+SUIT_SYMBOLS = {"S": "♠", "H": "♥", "D": "♦", "C": "♣"}
+
+RED_SUITS = {"H", "D"}
+
+RED = "\033[31m"
+RESET = "\033[0m"
+
+
+# def __repr__(self) -> str:
+def display_hand(hand):
+    lines = []
+    for suit in SUIT_ORDER:
+        ranks = [card.name[0] for card in hand.cards if card.name[1] == suit]
+        ranks.sort(key=RANK_ORDER.index)
+        ranks_str = " ".join(ranks) if ranks else "—"
+        symbol = SUIT_SYMBOLS[suit]
+        line = f"{symbol} {ranks_str}"
+        if suit in RED_SUITS:
+            line = f"{RED}{line}{RESET}"
+        lines.append(line)
+    print("\n".join(lines))
+    print("-" * 20)
+    print(f"{hand.shape}, {hand.hcp}")
+    print("-" * 20)
+
+
+# Global hand number used to calculate vulnerability
 hand_number = 0

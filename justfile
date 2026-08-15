@@ -7,6 +7,9 @@ run arg1="":
 test arg1="":
     uv run -m pytest {{arg1}}
 
+test-api arg1="":
+    uv run tests/api.py {{arg1}}
+
 bfgdealer_path := "/home/jeff/projects/bfg/bfgdealer"
 
 dev-bfgdealer:

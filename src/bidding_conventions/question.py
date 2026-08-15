@@ -20,6 +20,8 @@ class DisplayElements(Enum):
 
 
 class Question:
+    # auction is a list of bids, where each bid is a string like "1H"
+    # or "P" or "X" or "XX" or "cursor"
     def __init__(
         self,
         theme: str,

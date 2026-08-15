@@ -17,6 +17,8 @@ strings = {
     "SUB_TITLE_PREFIX": "Practice bidding with the",
     "SUB_TITLE_SUFFFIX": "convention",
     "WHAT_IS_YOUR_BID": "You are sitting in the N seat; what is your bid?",
+    "WHAT_IS_PARTERS_HOLDING": "With this auction, what is partner's ('S') holding?",
+    "WHAT_DOES_PARTNERS_BID_MEAN": "In this auction, what does partner's ('S') bid mean?",
 }
 
 

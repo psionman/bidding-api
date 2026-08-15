@@ -1,6 +1,6 @@
 import re
 
-from src.bidding_conventions._version import __version__
+from bidding_conventions import __version__
 
 
 def test_version():

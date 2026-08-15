@@ -185,10 +185,18 @@ class AdvancerInterpretation:
 
     @property
     def question(self) -> Question:
+        global last_response
+        while True:
+            selection = random.choice(self.OPTIONS)
+            if selection[0] == last_response:
+                continue
+            break
+        last_response = selection[0]
+
         selection = random.choice(self.OPTIONS)
         partners_bid = selection[0]
         correct_response = selection[1]
-        preamble = "With this auction, what is partner's ('S') holding?"
+        preamble = txt.WHAT_IS_PARTERS_HOLDING
         options = [item[1] for item in self.OPTIONS]
         return Question(
             theme=CONVENTION_TITLE,
@@ -215,3 +223,6 @@ def question() -> Question:
         AdvancerInterpretation(),
     ]
     return random.choice(classes).question
+
+
+last_response = None

@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from bidding_conventions.asptro import AdvancerInterpretation
+from bidding_conventions.defence_of_one_nt.asptro import AdvancerInterpretation
 
 advancer = AdvancerInterpretation()
 

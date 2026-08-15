@@ -13,7 +13,7 @@ from bidding_conventions.five_card_majors.responder import (
     question as fcm_responder_question,
 )
 from bidding_conventions.images import card_images
-from bidding_conventions.miscellaneous.lebensohl import (
+from bidding_conventions.miscellaneous.lebensohl_first_bid import (
     question as lebensohl_question,
 )
 
@@ -22,7 +22,7 @@ CONVENTION_FUNCTIONS = {
     "multi-landy": multi_landy_question,
     # 'ghestem': _get_ghestem,
     # 'puppet-stayman': _get_puppet_stayman,
-    "lebensohl": lebensohl_question,
+    "lebensohl": random.choice([lebensohl_question]),
     "five-cm-opener": fcm_opener_question,
     "five-cm-responder-bid-one": fcm_responder_question,
 }

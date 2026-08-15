@@ -1,6 +1,6 @@
 [project]
-name = "bidding-conventions"
-version = "0.0.0"
+name = "bidding-conventions-api"
+version = "0.0.2"
 description = "An API to support bidding convention practice"
 authors = [{name = "Jeff Watkins", email = "jeffwatkins2000@gmail.com"}]
 readme = "README.md"
@@ -9,9 +9,11 @@ dependencies = [
     "bfgdealer>=0.0.25",
     "django>=6.0.3",
     "django-cors-headers>=4.9.0",
+    "importlib>=1.0.4",
     "psiutils>=1.0.4",
     "pytest>=9.0.2",
     "python-dotenv>=1.2.2",
+    "requests>=2.34.2",
     "structlog>=25.5.0",
 ]
 
