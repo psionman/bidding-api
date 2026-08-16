@@ -4,6 +4,17 @@ list:
 run arg1="":
     uv run src/manage.py runserver {{arg1}}
 
+start-server:
+    uv run src/manage.py runserver 0.0.0.0:8000
+
+deploy:
+    git pull
+    uv sync
+    sudo systemctl restart bidforgame
+    sleep 2
+    sudo systemctl status bidforgame
+
+
 test arg1="":
     uv run -m pytest {{arg1}}
 
