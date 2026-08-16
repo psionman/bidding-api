@@ -20,15 +20,15 @@ SECRET_KEY = os.getenv(
     "",
 )
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "bidding.me.uk"]
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://www.python-plums.com",
+    "https://bidding.me.uk",
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://www.python-plums.com",
+    "https://bidding.me.uk",
     "http://localhost:8888",
 ]
 

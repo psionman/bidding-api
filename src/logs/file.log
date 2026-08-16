@@ -9577,3 +9577,8 @@
 {"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-08-16T14:31:42.769057Z", "level": "info", "logger": "django.server"}
 {"event": "\"GET /static-data/ HTTP/1.1\" 200 909559", "timestamp": "2026-08-16T14:31:42.773278Z", "level": "info", "logger": "django.server"}
 {"event": "\"POST /get-conventions/ HTTP/1.1\" 200 481", "timestamp": "2026-08-16T14:31:42.781811Z", "level": "info", "logger": "django.server"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-16T14:33:45.440266Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-16T14:33:58.566151Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-16T14:34:19.424846Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "/home/jeff/projects/bridge/bidding-conventions-api/src/config/settings.py changed, reloading.", "timestamp": "2026-08-16T16:22:22.285778Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-16T16:22:22.530321Z", "level": "info", "logger": "django.utils.autoreload"}
