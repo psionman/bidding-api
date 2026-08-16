@@ -1,12 +1,13 @@
 [project]
 name = "bidding-conventions-api"
-version = "0.0.2"
+version = "0.0.3"
 description = "An API to support bidding convention practice"
 authors = [{name = "Jeff Watkins", email = "jeffwatkins2000@gmail.com"}]
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "bfgdealer>=0.0.25",
+    "bfgdealer>=0.0.28",
+    "bridgeobjects>=0.1.32",
     "django>=6.0.3",
     "django-cors-headers>=4.9.0",
     "importlib>=1.0.4",
@@ -31,9 +32,6 @@ disallow_untyped_defs = true
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
-
-[tool.uv.sources]
-bfgdealer = { path = "../../bfg/bfgdealer", editable = true }
 
 [dependency-groups]
 dev = [

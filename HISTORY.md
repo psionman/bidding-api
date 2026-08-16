@@ -1,5 +1,8 @@
 # History
 
+## Version 0.0.3 - 16 AUg 2026
+1/ Add versions to staticdata
+
 ## Version 0.0.2 - 15 AUg 2026
 1. Added Lebensohl
 

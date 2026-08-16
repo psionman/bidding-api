@@ -18,6 +18,13 @@ POINTS = "points"
 RANDOM_MINOR = "random_minor"
 RANDOM_MAJOR = "random_major"
 
+PACKAGES = [
+    "bfgbidding",
+    # 'bfgcardplay',
+    "bfgdealer",
+    "bridgeobjects",
+]
+
 
 class HandStrength(Enum):
     WEAK = auto()

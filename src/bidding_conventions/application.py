@@ -1,5 +1,8 @@
 import random
+from importlib.metadata import version
 
+from bidding_conventions import __version__
+from bidding_conventions.constants import PACKAGES
 from bidding_conventions.defence_of_one_nt.asptro import (
     question as asptro_question,
 )
@@ -35,6 +38,7 @@ def static_data(ip_address: str) -> dict[str, object]:
     """Return a dict of static data."""
     context = {
         "card_images": card_images,
+        "versions": package_versions(),
     }
     return context
 
@@ -102,3 +106,12 @@ def conventions_selected(params: dict) -> dict:
 
     question = CONVENTION_FUNCTIONS[random.choice(params["conventions"])]()
     return question.response
+
+
+def package_versions():
+    versions = {
+        "api": __version__,
+    }
+    for package in PACKAGES:
+        versions[package] = version(package)
+    return versions

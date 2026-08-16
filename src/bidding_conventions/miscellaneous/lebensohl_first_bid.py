@@ -9,7 +9,6 @@ from bidding_conventions.common import get_bid_suppression, suit_html
 from bidding_conventions.descriptions import get_description
 from bidding_conventions.hand import (
     Hand,
-    display_hand,
     one_nt_lebensohl_hand,
     one_nt_openers_hand,
     weak_two_opener,
@@ -155,7 +154,8 @@ class ResponseToWeakTwoDoubled(Responder):
                 continue
             break
         self.auction = self.hand.auction
-        display_hand(self.hand)
+        # display_hand(self.hand)
+        print(self.hand)
 
 
 @dataclasses.dataclass

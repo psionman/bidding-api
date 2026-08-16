@@ -17,8 +17,11 @@ logger = psi_logger(__app_name__)
 meta = metadata(__dist_name__)
 __summary__: str = meta["Summary"]
 __version__: str = version(__dist_name__)
-
-if "Author" in meta:
+if "Author-email" in meta:
+    __author__: str = meta["Author-email"]
+elif "Author" in meta:
     __author__: str = meta["Author"]
 else:
     __author__: str = "Not defined"
+
+print(f"API Version: {__version__}")
