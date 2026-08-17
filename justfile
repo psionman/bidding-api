@@ -11,9 +11,9 @@ deploy:
     git pull
     uv pip install -e .
     uv sync
-    sudo systemctl restart bidforgame
+    sudo systemctl restart bidding-api
     sleep 2
-    sudo systemctl status bidforgame
+    sudo systemctl status bidding-api
 
 
 test arg1="":
