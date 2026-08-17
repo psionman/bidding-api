@@ -9,6 +9,7 @@ start-server:
 
 deploy:
     git pull
+    uv pip install -e .
     uv sync
     sudo systemctl restart bidforgame
     sleep 2
