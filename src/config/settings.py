@@ -30,12 +30,16 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://bidding.me.uk",
+    "https://bidding-abc.netlify.app",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "https://bidding.me.uk",
+    "https://bidding-abc.netlify.app",
     "http://localhost:8888",
 ]
+# Access-Control-Allow-Origin: https://bidding-abc.netlify.app
+# Access-Control-Allow-Credentials: true
 
 # dev convenience
 if DEBUG:
