@@ -32,6 +32,18 @@ class StaticData(View):
 
 
 @method_decorator(csrf_exempt, name="dispatch")
+class Version(View):
+    def get(self, request):
+        return JsonResponse({"version": app.__version__}, safe=False)
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class PackageVersions(View):
+    def get(self, request):
+        return JsonResponse({"versions": app.package_versions()}, safe=False)
+
+
+@method_decorator(csrf_exempt, name="dispatch")
 class GetConventions(View):
     def post(self, request):
         return handle_request(request, app.get_conventions)

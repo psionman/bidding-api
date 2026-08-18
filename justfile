@@ -5,7 +5,7 @@ run arg1="":
     uv run src/manage.py runserver {{arg1}}
 
 start-server:
-    uv run src/manage.py runserver 0.0.0.0:8000
+    uv run src/manage.py runserver 0.0.0.0:8100
 
 deploy:
     git pull

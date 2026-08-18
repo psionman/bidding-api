@@ -9582,3 +9582,48 @@
 {"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-16T14:34:19.424846Z", "level": "info", "logger": "django.utils.autoreload"}
 {"event": "/home/jeff/projects/bridge/bidding-conventions-api/src/config/settings.py changed, reloading.", "timestamp": "2026-08-16T16:22:22.285778Z", "level": "info", "logger": "django.utils.autoreload"}
 {"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-16T16:22:22.530321Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-18T06:43:36.121840Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "_fill_pips: insufficient pips suit=1 need=4 have=3", "timestamp": "2026-08-18T06:44:08.411573Z", "level": "warning", "logger": "bfgdealer.dealer_engine"}
+{"event": "_fill_pips: insufficient pips suit=1 need=4 have=3", "timestamp": "2026-08-18T06:44:08.411645Z", "level": "warning", "logger": "bfgdealer.dealer_engine"}
+{"event": "_fill_pips: insufficient pips suit=1 need=4 have=3", "timestamp": "2026-08-18T06:44:08.411685Z", "level": "warning", "logger": "bfgdealer.dealer_engine"}
+{"event": "_fill_pips: insufficient pips suit=1 need=4 have=3", "timestamp": "2026-08-18T06:44:08.411720Z", "level": "warning", "logger": "bfgdealer.dealer_engine"}
+{"event": "_fill_pips: insufficient pips suit=0 need=3 have=2", "timestamp": "2026-08-18T06:44:08.419157Z", "level": "warning", "logger": "bfgdealer.dealer_engine"}
+{"event": "\"POST /conventions-selected/ HTTP/1.1\" 200 7315", "timestamp": "2026-08-18T06:44:08.466833Z", "level": "info", "logger": "django.server"}
+{"event": "_fill_pips: insufficient pips suit=2 need=5 have=4", "timestamp": "2026-08-18T06:44:13.681561Z", "level": "warning", "logger": "bfgdealer.dealer_engine"}
+{"event": "_fill_pips: insufficient pips suit=0 need=4 have=3", "timestamp": "2026-08-18T06:44:13.705723Z", "level": "warning", "logger": "bfgdealer.dealer_engine"}
+{"event": "\"POST /conventions-selected/ HTTP/1.1\" 200 7320", "timestamp": "2026-08-18T06:44:13.710232Z", "level": "info", "logger": "django.server"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-18T06:45:01.578534Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-18T06:47:07.562153Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "_fill_pips: insufficient pips suit=1 need=4 have=3", "timestamp": "2026-08-18T06:47:16.221351Z", "level": "warning", "logger": "bfgdealer.dealer_engine"}
+{"event": "\"POST /conventions-selected/ HTTP/1.1\" 200 7318", "timestamp": "2026-08-18T06:47:16.232191Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /conventions-selected/ HTTP/1.1\" 200 7311", "timestamp": "2026-08-18T06:47:19.466065Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /conventions-selected/ HTTP/1.1\" 200 7313", "timestamp": "2026-08-18T06:47:20.012681Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909559", "timestamp": "2026-08-18T06:47:33.552394Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-08-18T06:47:33.564869Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909559", "timestamp": "2026-08-18T06:47:33.568363Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 481", "timestamp": "2026-08-18T06:47:33.587191Z", "level": "info", "logger": "django.server"}
+{"event": "/home/jeff/projects/bridge/bidding-conventions-api/src/bidding_conventions/urls.py changed, reloading.", "timestamp": "2026-08-18T09:15:07.297359Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-18T09:15:07.558607Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "/home/jeff/projects/bridge/bidding-conventions-api/src/bidding_conventions/views.py changed, reloading.", "timestamp": "2026-08-18T09:18:03.426251Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-18T09:18:03.661096Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909559", "timestamp": "2026-08-18T09:18:15.361466Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-08-18T09:18:15.386391Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909559", "timestamp": "2026-08-18T09:18:15.386821Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 481", "timestamp": "2026-08-18T09:18:15.405853Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909559", "timestamp": "2026-08-18T09:19:03.102779Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-08-18T09:19:03.137853Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /static-data/ HTTP/1.1\" 200 909559", "timestamp": "2026-08-18T09:19:03.141687Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 481", "timestamp": "2026-08-18T09:19:03.147200Z", "level": "info", "logger": "django.server"}
+{"event": "\"OPTIONS /get-conventions/ HTTP/1.1\" 200 0", "timestamp": "2026-08-18T09:19:40.079641Z", "level": "info", "logger": "django.server"}
+{"event": "\"POST /get-conventions/ HTTP/1.1\" 200 481", "timestamp": "2026-08-18T09:19:40.093065Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /version/ HTTP/1.1\" 200 20", "timestamp": "2026-08-18T09:19:50.698398Z", "level": "info", "logger": "django.server"}
+{"event": "Not Found: /favicon.ico", "timestamp": "2026-08-18T09:19:50.744223Z", "level": "warning", "logger": "django.request"}
+{"event": "\"GET /favicon.ico HTTP/1.1\" 404 3957", "timestamp": "2026-08-18T09:19:50.744410Z", "level": "warning", "logger": "django.server"}
+{"event": "/home/jeff/projects/bridge/bidding-conventions-api/src/bidding_conventions/urls.py changed, reloading.", "timestamp": "2026-08-18T09:20:35.632351Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-18T09:20:35.874666Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "/home/jeff/projects/bridge/bidding-conventions-api/src/bidding_conventions/views.py changed, reloading.", "timestamp": "2026-08-18T09:21:16.427645Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "Watching for file changes with StatReloader", "timestamp": "2026-08-18T09:21:16.657561Z", "level": "info", "logger": "django.utils.autoreload"}
+{"event": "\"GET /package-versions/ HTTP/1.1\" 200 103", "timestamp": "2026-08-18T09:21:36.501651Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /package-versions HTTP/1.1\" 301 0", "timestamp": "2026-08-18T09:21:44.321070Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /package-versions/ HTTP/1.1\" 200 103", "timestamp": "2026-08-18T09:21:44.325032Z", "level": "info", "logger": "django.server"}
+{"event": "\"GET /package-versions/ HTTP/1.1\" 200 103", "timestamp": "2026-08-18T09:21:57.429019Z", "level": "info", "logger": "django.server"}
