@@ -20,7 +20,12 @@ SECRET_KEY = os.getenv(
     "",
 )
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "bidding.me.uk"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "www.bidding.me.uk",
+    "bidding.me.uk",
+]
 
 
 CSRF_TRUSTED_ORIGINS = [
