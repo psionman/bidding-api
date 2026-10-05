@@ -1,7 +1,7 @@
 list:
     just --list
 
-run arg1="":
+run arg1="8100":
     uv run src/manage.py runserver {{arg1}}
 
 start-server:
