@@ -53,7 +53,7 @@ class Challenge:
 
     def display(self) -> None:
         items = (
-            f"preamble: {self._build_preamble()}",
+            f"question: {self.question}",
             f"auction: {self.auction}",
             f"options: {self._build_options()}",
             f"correct_response: {self.correct_response}",

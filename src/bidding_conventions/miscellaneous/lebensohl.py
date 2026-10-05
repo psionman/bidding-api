@@ -65,7 +65,7 @@ class RespondersBid:
             description=CONVENTION_DESCRIPTION,
             question=txt.WHAT_IS_YOUR_BID,
             correct_response=correct_response,
-            display_elements=["auction", "hand"],
+            display_elements=["auction", "hand", "bidding_box"],
             auction=self.auction,
             hand_cards=self.hand.sorted_card_names,
             dealer=self.dealer,
@@ -211,10 +211,10 @@ class InterpretationQuestion:
         return Challenge(
             theme=CONVENTION_THEME,
             description=CONVENTION_DESCRIPTION,
-            preamble=txt.WHAT_DOES_PARTNERS_BID_MEAN,
+            question=txt.WHAT_DOES_PARTNERS_BID_MEAN,
             options=self.response.options,
             correct_response=correct_response,
-            display_elements=["preamble", "auction"],
+            display_elements=["auction"],
             auction=self.auction,
             dealer=self.dealer,
             vulnerability=self.vulnerability,
@@ -229,7 +229,7 @@ class OpenersInterpretation:
         # Subclasses must set self.auction and self.dealer, then build
         # self.question, after calling super().__init__().
 
-    def _build_question(self) -> InterpretationQuestion:
+    def _build_challenge(self) -> InterpretationQuestion:
         hand = one_nt_openers_hand(dealer="S")  # used for vulnerability
         return InterpretationQuestion(
             response=self.response,
@@ -418,8 +418,7 @@ class OpenersInterpretationAfterOneNt(OpenersInterpretation):
             self.response.response,
         ]
         self.dealer = "N"
-        self.challenge = self._build_question().challenge
-        self.challenge.display()
+        self.challenge = self._build_challenge().challenge
 
 
 class OpenersInterpretationAfterWeakTwo(OpenersInterpretation):
@@ -432,7 +431,7 @@ class OpenersInterpretationAfterWeakTwo(OpenersInterpretation):
             self.response.response,
         ]
         self.dealer = "W"
-        self.challenge = self._build_question().challenge
+        self.challenge = self._build_challenge().challenge
 
 
 QUESTION_CLASSES: list[tuple[type, int]] = [

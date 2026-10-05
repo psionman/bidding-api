@@ -36,7 +36,7 @@ class Opener:
             vulnerability=hand.vulnerability,
             dealer=hand.dealer,
             auction=hand.auction + ["cursor"],
-            display_elements=["hand", "auction"],
+            display_elements=["hand", "auction", "bidding_box"],
         )
 
     def _correct_reponse(self, hand: Hand) -> str:

@@ -26,7 +26,7 @@ class TwoWayCheckback:
             description=CONVENTION_DESCRIPTION,
             question=txt.WHAT_IS_YOUR_BID,
             hand_cards=hand.sorted_card_names,
-            display_elements=["auction", "hand"],
+            display_elements=["auction", "hand", "bidding_box"],
             correct_response=self._correct_reponse(hand).upper(),
         )
 

@@ -59,7 +59,7 @@ class Overcaller:
             description=CONVENTION_DESCRIPTION,
             question=txt.WHAT_IS_YOUR_BID,
             correct_response=correct,
-            display_elements=["auction", "hand"],
+            display_elements=["auction", "hand", "bidding_box"],
             auction=["1NT", "cursor"],
             hand_cards=hand.sorted_card_names,
             dealer=hand.dealer,
