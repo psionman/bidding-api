@@ -5,7 +5,7 @@ import requests
 
 logger = logging.getLogger(__name__)
 
-API_DOMAIN = "http://localhost:8000"  # adjust as needed
+API_DOMAIN = "http://localhost:8100"  # adjust as needed
 
 # No session/CSRF auth in play, so a plain Session (or even
 # requests.post directly) is fine — kept as a Session in case you
@@ -20,7 +20,7 @@ def post_data_to_api(
         result = _get_hand(uri, params)
         if not repeat:
             break
-        result = input("Press Enter to continue...")
+        result = input("Press Enter to continue... ")
         if result.lower() == "q":
             break
 
@@ -49,7 +49,7 @@ def _get_hand(uri: str, params: dict | None) -> dict:
             raise RuntimeError(f"HTTP {response.status_code} - {err_text}")
 
         data = response.json()
-        _display_data(data)
+        # _display_data(data)
 
         if "error" in data:
             print(f"Error: {data['error']}")

@@ -27,4 +27,5 @@
         "titleBar.inactiveBackground": "#00800099",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
+    "python.languageServer": "None",
 }

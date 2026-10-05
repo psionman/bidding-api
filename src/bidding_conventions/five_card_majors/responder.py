@@ -5,9 +5,9 @@ import random
 from bfgdealer.dealer_solo import Dealer
 from bridgeobjects import BALANCED_SHAPES, Hand
 
+from bidding_conventions.challenge import Challenge
 from bidding_conventions.common import hand_shape
 from bidding_conventions.descriptions import get_description
-from bidding_conventions.question import Question
 from bidding_conventions.text import Text
 
 txt = Text()
@@ -19,12 +19,12 @@ CONVENTION_DESCRIPTION = get_description("fcm_opening.html")
 
 class ResponsesToOneClub:
     @property
-    def question(self) -> Question:
+    def challenge(self) -> Challenge:
         """Build the question."""
         hand = self._get_hand()
-        hand = Hand("AQ43.KQ54.K93.95")
+        # hand = Hand("AQ43.KQ54.K93.95")
         # hand = Hand("AQ43.KQ65.843.95")
-        return Question(
+        return Challenge(
             theme=CONVENTION_THEME,
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
@@ -113,10 +113,10 @@ class ResponsesToOneClub:
 
 class ResponsesToOneNoTrumps:
     @property
-    def question(self) -> Question:
+    def challenge(self) -> Challenge:
         """Build the question."""
         hand = self._get_hand()
-        return Question(
+        return Challenge(
             theme=CONVENTION_THEME,
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
@@ -195,10 +195,10 @@ class ResponsesToOneNoTrumps:
 
 class ResponseToRebidOneNoTrump:
     @property
-    def question(self) -> Question:
+    def challenge(self) -> Challenge:
         """Build the question."""
         hand = self._get_hand()
-        return Question(
+        return Challenge(
             theme=CONVENTION_THEME,
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
@@ -234,7 +234,7 @@ class ResponseToRebidOneNoTrump:
         return "P"
 
 
-def question() -> Question:
+def challenge() -> Challenge:
     classes = [
         # ResponsesToOneClub(),
         # ResponsesToOneNoTrumps(),

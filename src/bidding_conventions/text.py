@@ -13,12 +13,17 @@ from dataclasses import dataclass, field
 
 from psiutils.text import Text as PsiText
 
+N_SEAT = "You are N"
 strings = {
     "SUB_TITLE_PREFIX": "Practice bidding with the",
     "SUB_TITLE_SUFFFIX": "convention",
-    "WHAT_IS_YOUR_BID": "You are sitting in the N seat; what is your bid?",
-    "WHAT_IS_PARTERS_HOLDING": "With this auction, what is partner's ('S') holding?",
-    "WHAT_DOES_PARTNERS_BID_MEAN": "In this auction, what does partner's ('S') bid mean?",
+    "WHAT_IS_YOUR_BID": (f"{N_SEAT}; what is your bid?"),
+    "WHAT_IS_PARTERS_HOLDING": (
+        "With this auction, what is partner's (S) holding?"
+    ),
+    "WHAT_DOES_PARTNERS_BID_MEAN": (
+        f"{N_SEAT}; what does partner's (S) bid mean?"
+    ),
 }
 
 

@@ -5,12 +5,12 @@ import random
 # from bfgdealer.dealer_solo import Dealer
 from bridgeobjects import BALANCED_SHAPES, Hand
 
+from bidding_conventions.challenge import Challenge
 from bidding_conventions.descriptions import get_description
 from bidding_conventions.hand import opening_one_hand
-from bidding_conventions.question import Question
 
 CONVENTION_THEME = "5 Card Majors"
-CONVENTION_TITLE = "opening bid"
+CONVENTION_TITLE = "Opener's bids"
 CONVENTION_DESCRIPTION = get_description("fcm_opening.html")
 from bidding_conventions.text import Text
 
@@ -19,13 +19,13 @@ txt = Text()
 
 class Opener:
     @property
-    def question(self) -> Question:
+    def challenge(self) -> Challenge:
         """
         Build the question.
         """
         hand = opening_one_hand()
         correct = self._correct_reponse(hand).upper()
-        return Question(
+        return Challenge(
             theme=CONVENTION_THEME,
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
@@ -51,7 +51,7 @@ class Opener:
         return "1C"
 
 
-def question() -> Question:
+def challenge() -> Challenge:
     classes = [
         Opener(),
     ]

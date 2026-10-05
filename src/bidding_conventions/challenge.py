@@ -19,7 +19,7 @@ class DisplayElements(Enum):
     BIDDING_BOX = "bidding_box"
 
 
-class Question:
+class Challenge:
     # auction is a list of bids, where each bid is a string like "1H"
     # or "P" or "X" or "XX" or "cursor"
     def __init__(
@@ -52,7 +52,6 @@ class Question:
         self.auction = auction or []
         self.display_elements = display_elements or []
         self.bid_suppression = bid_suppression or []
-        # self.display()
 
     @property
     def response(self) -> dict:
@@ -65,7 +64,7 @@ class Question:
             "subtitle": self._build_subtitle(),
             "preamble": self._build_preamble(),
             "question": self.question,
-            "options": self._build_options(),
+            "options": self.options,
             "correct_response": self.correct_response,
             "description": self.description,
             "hand_cards": self.hand_cards,
@@ -77,18 +76,17 @@ class Question:
         }
 
     def display(self) -> None:
-        print(
-            # f"title: {self.title}",
-            # f"subtitle: {self._build_subtitle()}",
+        items = (
             f"preamble: {self._build_preamble()}",
-            # f"question: {self.question}",
+            f"auction: {self.auction}",
             f"options: {self._build_options()}",
             f"correct_response: {self.correct_response}",
-            # f"description: {self.description}",
             f"hand_cards: {self.hand_cards}",
-            f"auction: {self.auction}",
-            f"bid_suppression: {self.bid_suppression}",
         )
+        for item in items:
+            print(item)
+        print("*" * 50)
+        print("")
 
     def _build_subtitle(self) -> str:
         return f"{txt.SUB_TITLE_PREFIX} {self.title} {txt.SUB_TITLE_SUFFFIX}"
@@ -99,8 +97,12 @@ class Question:
         return " ".join(converted)
 
     def _build_options(self) -> list:
-        # return [self._suit_conversion(option) for option in self.options]
-        return self.options
+        delimiter = "-" * 50
+        options = delimiter
+        for option in self.options:
+            options = f"{options}\n{option}"
+        options = f"{options}\n{delimiter}"
+        return options
 
     def _suit_conversion(self, text: str) -> str:
         def replace_holding(match):

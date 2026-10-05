@@ -83,7 +83,7 @@ def one_nt_overcaller_hand(holding: str, points: tuple[int, int]) -> Hand:
     Create a hand for overcaller after 1NT opener.
 
     Args:
-        holding: The holding of the hand (e.g., "A K Q J 10 9 8 7 6 5 4 3 2")
+        holding: The holding of the hand (e.g., {'C': 5, 'D': 5})
         points: The HCP  points range (e.g., (9, 15))
 
     Returns:

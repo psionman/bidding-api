@@ -4,6 +4,7 @@ import random
 
 from bridgeobjects import Card, Hand
 
+from bidding_conventions.challenge import Challenge, random_minor_suit
 from bidding_conventions.common import hand_strength, suit_html
 from bidding_conventions.constants import (
     OPENER_OPENS_1NT,
@@ -11,18 +12,18 @@ from bidding_conventions.constants import (
     YOUR_HOLDING,
     HandStrength,
 )
+from bidding_conventions.convention import NextQuestion
 from bidding_conventions.descriptions import get_description
 from bidding_conventions.hand import (
     one_nt_advancers_hand,
     one_nt_overcaller_hand,
 )
-from bidding_conventions.question import Question, random_minor_suit
 from bidding_conventions.text import Text
 
 txt = Text()
 
-DEFEND_ONE_NT = 18
-CONVENTION_TITLE = "Asptro defence of 1NT"
+CONVENTION_THEME = "Defence of 1NT"
+CONVENTION_TITLE = "Asptro"
 CONVENTION_DESCRIPTION = get_description("asptro.html")
 
 OVERCALLERS_HOLDINGS = [
@@ -42,11 +43,12 @@ OVERCALLERS_HOLDINGS = [
     ({"S": 6, "H": 2}, "2S"),
     ({"C": 5, "D": 5}, "2NT"),
 ]
+DEFEND_ONE_NT = 18
 
 
 class Overcaller:
     @property
-    def question(self) -> Question:
+    def challenge(self) -> Challenge:
         """
         Pick a holding, pick points, adjust for extremes, build the question.
         """
@@ -54,8 +56,9 @@ class Overcaller:
         points = (9, 15)
         hand = one_nt_overcaller_hand(holding, points)
         correct = self._extreme_points_adjustment(hand.hcp, correct_response)
-        return Question(
-            theme=CONVENTION_TITLE,
+        return Challenge(
+            theme=CONVENTION_THEME,
+            title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
             preamble=f"You are N.{txt.WHAT_IS_YOUR_BID}",
             correct_response=correct,
@@ -89,16 +92,16 @@ class AdvancersBid:
         self.strength = None
 
     @property
-    def question(self) -> Question:
+    def challenge(self) -> Challenge:
         holding, overcallers_bid = random_holding()
         points = (9, 15)
         hand = one_nt_advancers_hand(holding, points)
         advancers_bid = self._advancers_bid(overcallers_bid, hand)
-        print(advancers_bid)
 
         preamble = f"You are N.{txt.WHAT_IS_YOUR_BID}"
-        return Question(
-            theme=CONVENTION_TITLE,
+        return Challenge(
+            theme=CONVENTION_THEME,
+            title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
             preamble=preamble,
             correct_response=advancers_bid,
@@ -184,21 +187,13 @@ class AdvancerInterpretation:
     ]
 
     @property
-    def question(self) -> Question:
-        global last_response
-        while True:
-            selection = random.choice(self.OPTIONS)
-            if selection[0] == last_response:
-                continue
-            break
-        last_response = selection[0]
-
+    def challenge(self) -> Challenge:
         selection = random.choice(self.OPTIONS)
         partners_bid = selection[0]
         correct_response = selection[1]
         preamble = txt.WHAT_IS_PARTERS_HOLDING
         options = [item[1] for item in self.OPTIONS]
-        return Question(
+        return Challenge(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
             preamble=preamble,
@@ -212,17 +207,15 @@ class AdvancerInterpretation:
 
 def random_holding() -> tuple[str, str]:
     holding, correct_response = random.choice(OVERCALLERS_HOLDINGS)
-    minor = random_minor_suit(holding)
-    return minor, correct_response
+    minor_holding = random_minor_suit(holding)
+    return minor_holding, correct_response
 
 
-def question() -> Question:
-    classes = [
-        Overcaller(),
-        AdvancersBid(),
-        AdvancerInterpretation(),
-    ]
-    return random.choice(classes).question
+QUESTION_CLASSES: list[tuple[type, int]] = [
+    (Overcaller, 1),
+    (AdvancersBid, 1),
+    (AdvancerInterpretation, 1),
+]
 
 
-last_response = None
+challenge = NextQuestion(QUESTION_CLASSES).challenge
