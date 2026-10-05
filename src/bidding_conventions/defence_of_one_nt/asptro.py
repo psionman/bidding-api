@@ -7,9 +7,6 @@ from bridgeobjects import Card, Hand
 from bidding_conventions.challenge import Challenge, random_minor_suit
 from bidding_conventions.common import hand_strength, suit_html
 from bidding_conventions.constants import (
-    OPENER_OPENS_1NT,
-    POINTS,
-    YOUR_HOLDING,
     HandStrength,
 )
 from bidding_conventions.convention import NextQuestion
@@ -60,9 +57,9 @@ class Overcaller:
             theme=CONVENTION_THEME,
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=f"You are N.{txt.WHAT_IS_YOUR_BID}",
+            question=txt.WHAT_IS_YOUR_BID,
             correct_response=correct,
-            display_elements=["preamble", "auction", "hand"],
+            display_elements=["auction", "hand"],
             auction=["1NT", "cursor"],
             hand_cards=hand.sorted_card_names,
             dealer=hand.dealer,
@@ -80,12 +77,6 @@ class Overcaller:
     def _random_points(self) -> int:
         return random.randint(9, 15)
 
-    def _build_preamble(self, holding: str, points: int) -> str:
-        return (
-            f"{OPENER_OPENS_1NT} and {YOUR_HOLDING} "
-            f"{holding} and have {points} {POINTS}."
-        )
-
 
 class AdvancersBid:
     def __init__(self) -> None:
@@ -98,15 +89,15 @@ class AdvancersBid:
         hand = one_nt_advancers_hand(holding, points)
         advancers_bid = self._advancers_bid(overcallers_bid, hand)
 
-        preamble = f"You are N.{txt.WHAT_IS_YOUR_BID}"
+        question = (txt.WHAT_IS_YOUR_BID,)
         return Challenge(
             theme=CONVENTION_THEME,
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=preamble,
+            question=question,
             correct_response=advancers_bid,
             hand_cards=hand.sorted_card_names,
-            display_elements=["preamble", "auction", "hand"],
+            display_elements=["auction", "hand"],
             vulnerability=hand.vulnerability,
             auction=["1NT", overcallers_bid, "P", "cursor"],
             dealer=hand.dealer,
@@ -191,15 +182,15 @@ class AdvancerInterpretation:
         selection = random.choice(self.OPTIONS)
         partners_bid = selection[0]
         correct_response = selection[1]
-        preamble = txt.WHAT_IS_PARTERS_HOLDING
+        question = txt.WHAT_IS_PARTERS_HOLDING
         options = [item[1] for item in self.OPTIONS]
         return Challenge(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=preamble,
+            question=question,
             options=options,
             correct_response=correct_response,
-            display_elements=["preamble", "auction"],
+            display_elements=["auction"],
             auction=["1NT", partners_bid, "P"],
             dealer="E",
         )

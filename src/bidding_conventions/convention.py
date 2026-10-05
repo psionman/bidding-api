@@ -165,7 +165,7 @@ class NextQuestion:
 
         # Fallback if avoidance wasn't possible.
         chosen_class = self._pick_class(classes, weights)
-        q = chosen_class().question
+        q = chosen_class().challenge
 
         last_class = chosen_class
         last_bid = q.correct_response

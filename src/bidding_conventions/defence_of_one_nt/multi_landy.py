@@ -7,11 +7,8 @@ from bridgeobjects import Card, Hand
 from bidding_conventions.challenge import Challenge
 from bidding_conventions.common import get_bid_suppression, suit_html
 from bidding_conventions.constants import (
-    OPENER_OPENS_1NT,
-    POINTS,
     RANDOM_MAJOR,
     RANDOM_MINOR,
-    YOUR_HOLDING,
 )
 from bidding_conventions.descriptions import get_description
 from bidding_conventions.hand import (
@@ -40,9 +37,9 @@ class Overcaller:
         return Challenge(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=txt.WHAT_IS_YOUR_BID,
+            question=txt.WHAT_IS_YOUR_BID,
             correct_response=correct,
-            display_elements=["preamble", "auction", "hand"],
+            display_elements=["auction", "hand"],
             auction=["1NT", "cursor"],
             hand_cards=hand.sorted_card_names,
             dealer=hand.dealer,
@@ -60,12 +57,6 @@ class Overcaller:
     def _random_points(self) -> int:
         return random.randint(9, 15)
 
-    def _build_preamble(self, holding: str, points: int) -> str:
-        return (
-            f"{OPENER_OPENS_1NT} and {YOUR_HOLDING} "
-            f"{holding} and have {points} {POINTS}."
-        )
-
 
 class AdvancersBid:
     def __init__(self) -> None:
@@ -82,10 +73,10 @@ class AdvancersBid:
         return Challenge(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=txt.WHAT_IS_YOUR_BID,
+            question=txt.WHAT_IS_YOUR_BID,
             correct_response=advancers_bid,
             hand_cards=hand.sorted_card_names,
-            display_elements=["preamble", "auction", "hand"],
+            display_elements=["auction", "hand"],
             vulnerability=hand.vulnerability,
             auction=auction,
             dealer=hand.dealer,
@@ -143,15 +134,14 @@ class AdvancerInterpretation:
 
         partners_bid = selection[0]
         correct_response = selection[1]
-        preamble = txt.WHAT_IS_PARTERS_HOLDING
         options = [item[1] for item in self.OPTIONS]
         return Challenge(
             theme=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=preamble,
+            question=txt.WHAT_IS_PARTERS_HOLDING,
             options=options,
             correct_response=correct_response,
-            display_elements=["preamble", "auction"],
+            display_elements=["auction"],
             auction=["1NT", partners_bid, "P"],
             dealer="E",
         )

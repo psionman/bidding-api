@@ -29,14 +29,14 @@ class Opener:
             theme=CONVENTION_THEME,
             title=CONVENTION_TITLE,
             description=CONVENTION_DESCRIPTION,
-            preamble=txt.WHAT_IS_YOUR_BID,
+            question=txt.WHAT_IS_YOUR_BID,
             options=None,
             correct_response=correct,
             hand_cards=hand.sorted_card_names,
             vulnerability=hand.vulnerability,
             dealer=hand.dealer,
             auction=hand.auction + ["cursor"],
-            display_elements=["hand", "auction", "preamble"],
+            display_elements=["hand", "auction"],
         )
 
     def _correct_reponse(self, hand: Hand) -> str:

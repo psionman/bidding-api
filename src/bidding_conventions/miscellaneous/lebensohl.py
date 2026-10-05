@@ -65,7 +65,7 @@ class RespondersBid:
             description=CONVENTION_DESCRIPTION,
             question=txt.WHAT_IS_YOUR_BID,
             correct_response=correct_response,
-            display_elements=["preamble", "auction", "hand"],
+            display_elements=["auction", "hand"],
             auction=self.auction,
             hand_cards=self.hand.sorted_card_names,
             dealer=self.dealer,
