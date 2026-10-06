@@ -1,9 +1,12 @@
 # History
 
-## Version 0.0.3 - 16 AUg 2026
-1/ Add versions to staticdata
+## Version 0.0.4 - 6 Oct 2026
+1. Two Way Checkback convention added
 
-## Version 0.0.2 - 15 AUg 2026
+## Version 0.0.3 - 16 Aug 2026
+1. Add versions to staticdata
+
+## Version 0.0.2 - 15 Aug 2026
 1. Added Lebensohl
 
 ## Version 0.0.1 - 29 Jul 2026

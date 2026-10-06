@@ -6,7 +6,7 @@ import random
 from bridgeobjects import SUITS
 
 from bidding_conventions.bidding import stoppers_in_bid_suits
-from bidding_conventions.challenge import Challenge
+from bidding_conventions.challenge import Challenge, randomize_reponses
 from bidding_conventions.common import get_bid_suppression, suit_html
 from bidding_conventions.convention import NextQuestion
 from bidding_conventions.descriptions import get_description
@@ -189,18 +189,12 @@ AFTER_WEAK_2 = InterpretationContext(
 )
 
 
+@dataclasses.dataclass
 class InterpretationQuestion:
-    def __init__(
-        self,
-        response: Response,
-        auction: list[str],
-        dealer: str,
-        vulnerability,
-    ):
-        self.response = response
-        self.auction = auction
-        self.dealer = dealer
-        self.vulnerability = vulnerability
+    response: Response
+    auction: list[str]
+    dealer: str
+    vulnerability: str
 
     @property
     def challenge(self) -> Challenge:
@@ -253,7 +247,7 @@ class OpenersInterpretation:
     def _partner_bids_two_nt(self) -> list[Response]:
         responses = []
         for opponents_suit in ["D", "H", "S"]:
-            (options, correct_index) = self._randomize_reponses(
+            (options, correct_index) = randomize_reponses(
                 [
                     f"Asking partner to bid 3{suit_html('C')}",
                     "Asking partner to Pass",
@@ -278,7 +272,7 @@ class OpenersInterpretation:
             for overcall_suit in overcall_suits:
                 if SUIT_ORDER[responders_suit] <= SUIT_ORDER[overcall_suit]:
                     continue
-                (options, correct_index) = self._randomize_reponses(
+                (options, correct_index) = randomize_reponses(
                     self._two_level_responses(overcall_suit, responders_suit),
                 )
                 responses.append(
@@ -317,7 +311,7 @@ class OpenersInterpretation:
             if chosen_overcall_suit is None:
                 continue
 
-            (options, correct_index) = self._randomize_reponses(
+            (options, correct_index) = randomize_reponses(
                 self._three_level_responses(
                     chosen_overcall_suit, responders_suit
                 ),
@@ -349,7 +343,7 @@ class OpenersInterpretation:
     def _partner_cue_bids(self) -> list[Response]:
         responses = []
         for overcall_suit in ["D", "H", "S"]:
-            (options, correct_index) = self._randomize_reponses(
+            (options, correct_index) = randomize_reponses(
                 self._cue_bid_responses(overcall_suit)
             )
             response = Response(
@@ -376,7 +370,7 @@ class OpenersInterpretation:
     def _partner_bids_three_nt(self) -> list[Response]:
         responses = []
         for overcall_suit in ["D", "H", "S"]:
-            (options, correct_index) = self._randomize_reponses(
+            (options, correct_index) = randomize_reponses(
                 self._three_nt_options(overcall_suit)
             )
             response = Response(
@@ -399,14 +393,6 @@ class OpenersInterpretation:
             f"To play in {suit}",
             f"Asking for stop in {suit}",
         )
-
-    def _randomize_reponses(
-        self, options: list[str], correct_response_index: int = 0
-    ) -> list[str]:
-        correct_option = options[correct_response_index]
-        shuffled_options = random.sample(options, k=len(options))
-        correct_index = shuffled_options.index(correct_option)
-        return shuffled_options, correct_index
 
 
 class OpenersInterpretationAfterOneNt(OpenersInterpretation):
