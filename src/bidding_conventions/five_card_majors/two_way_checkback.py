@@ -66,13 +66,13 @@ class TwoWayCheckbackClubs:
         ]
         return auction, options, options[correct_response]
 
-    def _responder_passes(self, *args) -> None:
+    def _responder_passes(self, *args) -> tuple[list[str], str]:
         responders_bid = args[0]
         responders_suit = suit_html(responders_bid[1])
         return randomize_reponses(
             [
                 f"To play in {DIAMONDS}",
-                "Wait to see what oppponents bid",
+                "Wait to see what opponents bid",
                 "If opponents bid, asking you to double",
                 (
                     "If opponents bid, asking you to bid 2NT with "
@@ -83,7 +83,7 @@ class TwoWayCheckbackClubs:
             0,
         )
 
-    def _responder_bids_two_major(self, *args) -> None:
+    def _responder_bids_two_major(self, *args) -> tuple[list[str], str]:
         responders_bid = args[0]
         responders_suit = suit_html(responders_bid[1])
         responders_rebid = args[1]
@@ -122,7 +122,7 @@ class TwoWayCheckbackClubs:
                 0,
             )
 
-    def _responder_bids_three_major(self, *args) -> None:
+    def _responder_bids_three_major(self, *args) -> tuple[list[str], str]:
         responders_bid = args[0]
         responders_suit = suit_html(responders_bid[1])
         responders_rebid = args[1]
@@ -141,15 +141,7 @@ class TwoWayCheckbackClubs:
             correct = 0
         else:
             correct = 1
-        return randomize_reponses(
-            responses,
-            correct,
-        )
-
-    def _other_major(self, suit: str) -> None:
-        if suit == HEARTS:
-            return SPADES
-        return HEARTS
+        return randomize_reponses(responses, correct)
 
 
 class TwoWayCheckbackDiamonds:
@@ -196,7 +188,7 @@ class TwoWayCheckbackDiamonds:
         ]
         return auction, options, options[correct_response]
 
-    def _opener_bids_two_major(self, *args) -> None:
+    def _opener_bids_two_major(self, *args) -> tuple[list[str], str]:
         responders_bid = args[0]
         responders_suit = suit_html(responders_bid[1])
         openers_bid = args[1]
@@ -214,7 +206,7 @@ class TwoWayCheckbackDiamonds:
         correct = 0 if responders_suit == openers_suit else 1
         return randomize_reponses(responses, correct)
 
-    def _opener_bids_two_nt(self, *args) -> None:
+    def _opener_bids_two_nt(self, *args) -> tuple[list[str], str]:
         responders_bid = args[0]
         responders_suit = suit_html(responders_bid[1])
         other_major = _other_major(responders_suit)
@@ -225,11 +217,11 @@ class TwoWayCheckbackDiamonds:
             "To play",
             f"Asking for stop in {other_major}; {txt.GF}",
             f"Promising stop in {other_major}; {txt.GF}",
-            f"Asking you to bid3{CLUBS}",
+            f"Asking you to bid 3{CLUBS}",
         ]
-        return randomize_reponses(responses)
+        return randomize_reponses(responses, 0)
 
-    def _opener_bids_three_minor(self, *args) -> None:
+    def _opener_bids_three_minor(self, *args) -> tuple[list[str], str]:
         responders_bid = args[0]
         responders_suit = suit_html(responders_bid[1])
         openers_bid = args[1]
@@ -247,7 +239,7 @@ class TwoWayCheckbackDiamonds:
             f"Promising stop in {openers_suit}; {txt.GF}",
             f"Promising stop in {openers_suit}; {txt.INV}",
         ]
-        return randomize_reponses(responses)
+        return randomize_reponses(responses, 0)
 
 
 class OpenersInterpretationNoCheckback:
@@ -304,7 +296,7 @@ class OpenersInterpretationNoCheckback:
         ]
         return auction, options, options[correct_response]
 
-    def _responder_bids_two_hearts(self, *args) -> None:
+    def _responder_bids_two_hearts(self, *args) -> tuple[list[str], str]:
         return randomize_reponses(
             [
                 f"Promises 6{HEARTS} {txt.INV} mute on {SPADES} holding",
@@ -320,7 +312,7 @@ class OpenersInterpretationNoCheckback:
             0,
         )
 
-    def _responder_bids_two_spades(self, *args) -> None:
+    def _responder_bids_two_spades(self, *args) -> tuple[list[str], str]:
         return randomize_reponses(
             [
                 f"Promises 6{SPADES} {txt.INV} denies 4{HEARTS}",
@@ -335,21 +327,21 @@ class OpenersInterpretationNoCheckback:
             0,
         )
 
-    def _responder_bids_two_nt(self, *args) -> None:
+    def _responder_bids_two_nt(self, *args) -> tuple[list[str], str]:
         responders_bid = args[0]
         responders_suit = suit_html(responders_bid[1])
         return randomize_reponses(
             [
                 f"{txt.INV.capitalize()}",
                 f"{txt.INV.capitalize()} promises stop in {responders_suit}",
-                f"{txt.INV.capitalize()} askiing for stop in {responders_suit}",
+                f"{txt.INV.capitalize()} asking for stop in {responders_suit}",
                 f"{txt.GF.capitalize()}",
                 f"Asking partner to bid 3{CLUBS}",
             ],
             0,
         )
 
-    def _responder_bids_three_suit(self, *args) -> None:
+    def _responder_bids_three_suit(self, *args) -> tuple[list[str], str]:
         first_suit = suit_html(args[0][1])
         second_suit = suit_html(args[1][1])
         common_responses = [
@@ -369,13 +361,13 @@ class OpenersInterpretationNoCheckback:
             0,
         )
 
-    def _responder_bids_game(self, *args) -> None:
+    def _responder_bids_game(self, *args) -> tuple[list[str], str]:
         return randomize_reponses(
             ["To play", f"{txt.INV.capitalize()}", "Slam try", "Forcing"],
             0,
         )
 
-    def _responder_bids_four_nt(self, *args) -> None:
+    def _responder_bids_four_nt(self, *args) -> tuple[list[str], str]:
         return randomize_reponses(
             ["To play", f"{txt.INV.capitalize()}", "Slam try", "Forcing"],
             0,
@@ -423,7 +415,7 @@ class OpenersInterpretationWithCheckback:
         ]
         return auction, options, options[correct_response]
 
-    def _responder_bids_two_clubs(self, *args) -> None:
+    def _responder_bids_two_clubs(self, *args) -> tuple[list[str], str]:
         return randomize_reponses(
             [
                 f"Asks partner to bid 2{DIAMONDS}",
@@ -438,7 +430,7 @@ class OpenersInterpretationWithCheckback:
             0,
         )
 
-    def _responder_bids_two_diamonds(self, *args) -> None:
+    def _responder_bids_two_diamonds(self, *args) -> tuple[list[str], str]:
         return randomize_reponses(
             [
                 f"{txt.GF.capitalize()}",
@@ -453,7 +445,7 @@ class OpenersInterpretationWithCheckback:
         )
 
 
-def _other_major(suit: str) -> None:
+def _other_major(suit: str) -> str:
     if suit == HEARTS:
         return SPADES
     return HEARTS
