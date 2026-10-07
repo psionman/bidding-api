@@ -24,6 +24,8 @@ strings = {
     "WHAT_DOES_PARTNERS_BID_MEAN": (
         f"{YOU_ARE_NORTH}; what does partner's (S) bid mean?"
     ),
+    "GF": "Game forcing",
+    "INV": "Invitational",
 }
 
 

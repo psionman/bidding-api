@@ -1,7 +1,8 @@
 # History
 
 ## Version 0.0.4 - 6 Oct 2026
-1. Two Way Checkback convention added
+1. Tidy and align code with standards
+2. Two Way Checkback convention added
 
 ## Version 0.0.3 - 16 Aug 2026
 1. Add versions to staticdata

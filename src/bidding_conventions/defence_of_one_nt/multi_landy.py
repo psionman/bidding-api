@@ -147,6 +147,9 @@ class AdvancerInterpretation:
         )
 
 
+# TODO: convert to NextQuestion format
+
+
 def challenge() -> Challenge:
     classes = [
         Overcaller(),

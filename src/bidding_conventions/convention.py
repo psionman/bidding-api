@@ -5,12 +5,8 @@ from __future__ import annotations
 import dataclasses
 import hashlib
 import random
-from abc import ABC
-from collections.abc import Sequence
 
 from bidding_conventions.challenge import Challenge
-from bidding_conventions.descriptions import get_description
-from bidding_conventions.text import Text
 
 # Maximum attempts to find a class/answer that differs from the previous
 # question before giving up and accepting whatever was last generated.
@@ -35,10 +31,12 @@ CONVENTION_TREE = [
             {"id": "multi-landy", "name": "Multi-Landy", "children": []},
         ],
     },
+    #
     # Miscellaneous
     # {"id": "ghestem", "name": "Ghestem", "children": []},
     {"id": "lebensohl", "name": "Lebensohl", "children": []},
     # {"id": "puppet-stayman", "name": "Puppet Stayman", "children": []},
+    #
     # 5 Card Majors
     {
         "id": "five-card-majors",
@@ -83,57 +81,6 @@ class Response:
             ]
         )
         self.hash_id = hashlib.sha256(payload.encode()).hexdigest()
-
-
-class Convention(ABC):
-    """Base for a bidding-convention question generator."""
-
-    title: str
-    description_file: str  # e.g. "lebensohl.html"
-    # Optional: weighted list of (QuestionGenerator, weight)
-    question_classes: Sequence[tuple[type, int]] = ()
-
-    def __init__(self) -> None:
-        self.txt = Text()
-        self.description = get_description(self.description_file)
-        # anti-repeat state lives on the instance
-        self._last_class = None
-        self._last_bid = None
-        self._last_response = None
-
-    @property
-    def convention_title(self) -> str:
-        return self.title
-
-    @property
-    def convention_description(self) -> str:
-        return self.description
-
-    def challenge(self) -> Challenge:
-        """Default implementation: weighted pick with simple anti-repeat."""
-        if not self.question_classes:
-            raise NotImplementedError("No question_classes defined")
-
-        classes, weights = zip(*self.question_classes, strict=True)
-        chosen = None
-        q = None
-        for _ in range(15):  # MAX_REPEAT_AVOIDANCE_ATTEMPTS
-            chosen = self._pick_class(classes, weights)
-            q = chosen().question
-            if q.correct_response != self._last_bid:
-                break
-
-        self._last_class = chosen
-        self._last_bid = q.correct_response
-        return q
-
-    def _pick_class(self, classes, weights):
-        if len(classes) == 1:
-            return classes[0]
-        while True:
-            chosen = random.choices(classes, weights=weights, k=1)[0]
-            if chosen is not self._last_class:
-                return chosen
 
 
 class NextQuestion:
